@@ -1,20 +1,11 @@
-// import 'package:drosak_m_app/view/add_new_group_screen/add_new_group_screen.dart';
-// import 'package:drosak_m_app/view/add_new_student_screen/add_new_student_screen.dart';
-// import 'package:drosak_m_app/view/audience/screens/audience_screen.dart';
-// import 'package:drosak_m_app/view/education_stages/screens/education_stages_screen.dart';
-// import 'package:drosak_m_app/view/explore_app/screens/explore_app_screen.dart';
-// import 'package:drosak_m_app/view/groups/screens/groups_screen.dart';
-// import 'package:drosak_m_app/view/main_screen/main_screen.dart';
-// import 'package:drosak_m_app/view/on_boarding/screen/on_boarding_screen.dart';
-// import 'package:drosak_m_app/view/paying/screens/paying_screen.dart';
- import 'package:drosak/view/splash_screen/screens/splash_screen.dart';
-// import 'package:drosak_m_app/view/students/screens/students_screen.dart';
+import 'package:drosak/view/OnBoardingScreen/screens/On_boarding_screen.dart';
+import 'package:drosak/view/splash_screen/screens/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 class RoutesManager {
   static Map<String, WidgetBuilder> routes = {
     RoutesName.kSplashScreenRoute: (context) => const SplashScreen(),
-    // RoutesName.kOnBoardingScreenRoute: (context) => const OnBoardingScreen(),
+    RoutesName.kOnBoardingScreenRoute: (context) => const OnBoardingScreen(),
     // RoutesName.kMainScreenRoute: (context) => const MainScreen(),
     // RoutesName.kExploreAppScreenRoute: (context) => const ExploreAppScreen(),
     // RoutesName.kGroupsRoute: (context) => const GroupsScreen(),
