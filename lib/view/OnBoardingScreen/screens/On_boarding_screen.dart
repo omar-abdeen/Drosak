@@ -1,7 +1,7 @@
-import 'package:drosak/core/resources/assets_values_mananger.dart';
+import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/core/resources/const_values.dart';
+import 'package:drosak/view/OnBoardingScreen/widgets/custom_item_on_boarding_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -9,28 +9,15 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(AssetsValuesManager.kOnBoardingImage1),
-                SizedBox(height: 72),
-                Text(
-                    ConstValue.kOnBoardingText1,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'AA-GALAXY',
-                      wordSpacing: 2,
-                    )
-                ),
-              ]
-          ),
-        ),
+      bottomNavigationBar: Container(
+        height: 50,
+        color: ColorManager.kPrimaryColor,
+      ),
+      body: PageView.builder(
+          itemCount: ConstListValues.listOnBoardingModel.length,
+          itemBuilder:(context, index) => CustomItemOnboardingScreen(
+            onBoardingModel: ConstListValues.listOnBoardingModel[index],
+          )
       ),
     );
   }
