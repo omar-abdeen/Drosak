@@ -1,4 +1,5 @@
 import 'package:drosak/view/OnBoardingScreen/screens/On_boarding_screen.dart';
+import 'package:drosak/view/explore_app/screens/explore_app_screen.dart';
 import 'package:drosak/view/splash_screen/screens/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,7 +8,7 @@ class RoutesManager {
     RoutesName.kSplashScreenRoute: (context) => const SplashScreen(),
     RoutesName.kOnBoardingScreenRoute: (context) => const OnBoardingScreen(),
     // RoutesName.kMainScreenRoute: (context) => const MainScreen(),
-    // RoutesName.kExploreAppScreenRoute: (context) => const ExploreAppScreen(),
+    RoutesName.kExploreAppScreen: (context) => const ExploreAppScreen(),
     // RoutesName.kGroupsRoute: (context) => const GroupsScreen(),
     // RoutesName.kAudienceRoute: (context) => const AudienceScreen(),
     // RoutesName.kStudentsRoute: (context) => const StudentsScreen(),
@@ -22,7 +23,7 @@ class RoutesManager {
 class RoutesName {
   static const String kSplashScreenRoute = '/kSplashScreenRoute';
   static const String kOnBoardingScreenRoute = '/kOnBoardingScreenRoute';
-  static const String kExploreAppScreenRoute = '/kExploreAppScreenRoute';
+  static const String kExploreAppScreen = '/kExploreAppScreen';
   static const String kMainScreenRoute = '/kMainScreenRoute';
   static const String kPayingRoute = '/kPayingRoute';
   static const String kEducationStagesRoute = '/kEducationStagesRoute';
