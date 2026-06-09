@@ -1,6 +1,6 @@
-import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/view/OnBoardingScreen/widgets/custom_item_on_boarding_screen.dart';
+import 'package:drosak/view/OnBoardingScreen/widgets/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -9,15 +9,15 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        height: 50,
-        color: ColorManager.kPrimaryColor,
+      bottomNavigationBar:  CustomBottomNavBar(
+        count: ConstListValues.listOnBoardingModel.length,
+        position: 0,
       ),
       body: PageView.builder(
-          itemCount: ConstListValues.listOnBoardingModel.length,
-          itemBuilder:(context, index) => CustomItemOnboardingScreen(
-            onBoardingModel: ConstListValues.listOnBoardingModel[index],
-          )
+        itemCount: ConstListValues.listOnBoardingModel.length,
+        itemBuilder: (context, index) => CustomItemOnboardingScreen(
+          onBoardingModel: ConstListValues.listOnBoardingModel[index],
+        ),
       ),
     );
   }
