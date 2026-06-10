@@ -1,15 +1,14 @@
-import 'package:drosak/core/resources/assets_values_mananger.dart';
 import 'package:drosak/core/resources/colors_manager.dart';
-import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/core/resources/fonts_manager.dart';
 import 'package:drosak/core/resources/height_manager.dart';
+import 'package:drosak/model/explore/explore_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 class CustomContainerOnNameAndImageExploreScreen extends StatelessWidget {
   const CustomContainerOnNameAndImageExploreScreen({
-    super.key,
+    super.key, required this.exploreScreenModel,
   });
-
+  final ExploreScreenModel exploreScreenModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +40,7 @@ class CustomContainerOnNameAndImageExploreScreen extends StatelessWidget {
               vertical: 5,
             ),
             child: Text(
-              ConstValue.kEducationalStages,
+              exploreScreenModel.text,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -51,8 +50,9 @@ class CustomContainerOnNameAndImageExploreScreen extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: HeightManager.h10),
           SvgPicture.asset(
-            AssetsValuesManager.kOnBoardingImage1,
+            exploreScreenModel.image,
             height: HeightManager.h63,
           ),
         ],

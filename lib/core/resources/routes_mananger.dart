@@ -1,3 +1,4 @@
+import 'package:drosak/view/MainScreen/screens/main_screen.dart';
 import 'package:drosak/view/OnBoardingScreen/screens/On_boarding_screen.dart';
 import 'package:drosak/view/explore_app/screens/explore_app_screen.dart';
 import 'package:drosak/view/splash_screen/screens/splash_screen.dart';
@@ -7,7 +8,7 @@ class RoutesManager {
   static Map<String, WidgetBuilder> routes = {
     RoutesName.kSplashScreenRoute: (context) => const SplashScreen(),
     RoutesName.kOnBoardingScreenRoute: (context) => const OnBoardingScreen(),
-    // RoutesName.kMainScreenRoute: (context) => const MainScreen(),
+    RoutesName.kMainScreenRoute: (context) => const MainScreen(),
     RoutesName.kExploreAppScreen: (context) => const ExploreAppScreen(),
     // RoutesName.kGroupsRoute: (context) => const GroupsScreen(),
     // RoutesName.kAudienceRoute: (context) => const AudienceScreen(),
