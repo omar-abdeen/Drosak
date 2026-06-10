@@ -1,4 +1,5 @@
-
+import 'package:drosak/core/resources/colors_manager.dart';
+import 'package:drosak/view/explore_app/widgets/custom_appbar_explore_app_screen.dart';
 import 'package:flutter/material.dart';
 
 class ExploreAppScreen extends StatelessWidget {
@@ -6,29 +7,15 @@ class ExploreAppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Explore App',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Welcome to the Explore App!',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
-        ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: ColorManager.kBlackColor,
+        appBar:CustomAppBarExploreAppScreen(),
+        body: const Center(child: Text('Welcome to the Explore App!')),
       ),
     );
   }
 }
+
+

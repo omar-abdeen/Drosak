@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         child: MaterialApp(
         routes: RoutesManager.routes,
-        initialRoute: RoutesName.kSplashScreenRoute,
+        initialRoute: RoutesName.kExploreAppScreen,
         debugShowCheckedModeBanner: false,
             ),
       );
