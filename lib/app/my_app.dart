@@ -1,3 +1,4 @@
+import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/core/resources/routes_mananger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +13,11 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         child: MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: ColorManager.kBlackColor,
+          ),
         routes: RoutesManager.routes,
-        initialRoute: RoutesName.kExploreAppScreen,
+        initialRoute: RoutesName.kMainScreenRoute,
         debugShowCheckedModeBanner: false,
             ),
       );

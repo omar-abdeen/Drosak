@@ -1,4 +1,5 @@
 import 'package:drosak/controller/OnBoarding/on_boarding_control.dart';
+import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/view/OnBoardingScreen/widgets/custom_nav_bar.dart';
 import 'package:drosak/view/OnBoardingScreen/widgets/custom_page.dart';
@@ -23,6 +24,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.kWhiteColor,
       bottomNavigationBar: CustomBottomNavBar(
         onTap: () {
           _controller.skip(context);
