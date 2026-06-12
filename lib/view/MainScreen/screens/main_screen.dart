@@ -8,17 +8,36 @@ class MainScreen extends StatefulWidget {
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
+
 class _MainScreenState extends State<MainScreen> {
+  late MainScreenController _controller;
+
+  @override
+  void initState() {
+    _controller = MainScreenController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _controller.disposeController();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBarMainScreen(
+        onTap: (value) {
+          _controller.changeBottomNavBar(value);
+        },
         listIcon: MainScreenController.listBottomNavBarModel,
       ),
-      // appBar: AppBar(
-      //   title: const Text('Main Screen'),
-      //   centerTitle: true,
-      // ),
+      body: StreamBuilder(
+        stream: _controller.outputBody ,
+        builder: (context, snapshot) => MainScreenController
+            .listBottomNavBarModel[_controller.currentIndexScreen]
+            .screen,
+      ),
     );
   }
 }

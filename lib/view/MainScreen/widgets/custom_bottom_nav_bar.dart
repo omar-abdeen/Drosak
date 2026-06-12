@@ -6,14 +6,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CustomBottomNavBarMainScreen extends StatelessWidget {
   const CustomBottomNavBarMainScreen({
     super.key,
-    required this.listIcon,
+    required this.listIcon, required this.onTap,
   });
 
   final List<BottomNavBarModel> listIcon;
+  final ValueChanged<int> onTap;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      onTap: onTap,
       type: BottomNavigationBarType.fixed,
       backgroundColor: ColorManager.kBlackLight,
       selectedItemColor: ColorManager.kPrimaryColor,

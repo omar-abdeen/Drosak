@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class EducationStagesScreen extends StatelessWidget {
-  const EducationStagesScreen({super.key});
+class TheAudienceScreen extends StatelessWidget {
+  const TheAudienceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Text(
-          'Education Stages Screen',
+          'The Audience Screen',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
-    );;
+    );
   }
 }
