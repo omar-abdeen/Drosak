@@ -17,6 +17,7 @@ class _MainScreenState extends State<MainScreen> {
     _controller = MainScreenController();
     super.initState();
   }
+
   @override
   void dispose() {
     _controller.disposeController();
@@ -27,15 +28,16 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBarMainScreen(
+        outPutBottomNavBar: _controller.outputBottomNavBar,
         onTap: (value) {
           _controller.changeBottomNavBar(value);
         },
         listIcon: MainScreenController.listBottomNavBarModel,
       ),
       body: StreamBuilder(
-        stream: _controller.outputBody ,
+        stream: _controller.outputBody,
         builder: (context, snapshot) => MainScreenController
-            .listBottomNavBarModel[_controller.currentIndexScreen]
+            .listBottomNavBarModel[snapshot.data==null ? 0 : snapshot.data!]
             .screen,
       ),
     );

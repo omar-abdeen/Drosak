@@ -12,18 +12,31 @@ import 'package:drosak/view/All_Item/The_Audience/screens/the_aufience_screen.da
 
 class MainScreenController {
   int currentIndexScreen = 0;
+  // body controller
   late StreamController<int> controllerBody;
   late Sink<int> inputBody;
   late Stream <int> outputBody;
+  // bottom nav bar controller
+  late StreamController<int> controllerBottomNavBar;
+  late Sink<int> inputBottomNavBar;
+  late Stream<int> outputBottomNavBar;
+
   MainScreenController() {
     controllerBody = StreamController();
     inputBody = controllerBody.sink;
     outputBody = controllerBody.stream;
     inputBody.add(currentIndexScreen);
+    controllerBottomNavBar = StreamController();
+    inputBottomNavBar = controllerBottomNavBar.sink;
+    outputBottomNavBar = controllerBottomNavBar.stream;
+    inputBottomNavBar.add(currentIndexScreen);
   }
   void disposeController() {
     inputBody.close();
     controllerBody.close();
+
+    inputBottomNavBar.close();
+    controllerBottomNavBar.close();
   }
 
   static List<BottomNavBarModel> listBottomNavBarModel = [
@@ -56,5 +69,6 @@ class MainScreenController {
   void changeBottomNavBar(int index) {
     currentIndexScreen = index;
     inputBody.add(currentIndexScreen);
+    inputBottomNavBar.add(currentIndexScreen);
   }
 }
