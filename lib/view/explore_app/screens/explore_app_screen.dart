@@ -28,8 +28,8 @@ class _ExploreAppScreenState extends State<ExploreAppScreen> {
         body: Column(
           children: [
             CustomGridViewOfItemExploreScreen(
-              onTap: () {
-                exploreController.goToMainScreen('Main Screen', context);
+              onTap: (index) {
+                exploreController.goToMainScreen(index: index, context: context);
               },
             ),
           ],

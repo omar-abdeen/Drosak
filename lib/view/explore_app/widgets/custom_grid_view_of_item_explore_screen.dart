@@ -3,8 +3,8 @@ import 'package:drosak/view/explore_app/widgets/custom_stack_explore_screen.dart
 import 'package:flutter/material.dart';
 
 class CustomGridViewOfItemExploreScreen extends StatelessWidget {
-  const CustomGridViewOfItemExploreScreen({super.key, this.onTap});
-  final GestureTapCallback? onTap;
+  const CustomGridViewOfItemExploreScreen({super.key, required this.onTap});
+  final void Function(int index) onTap;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -18,7 +18,9 @@ class CustomGridViewOfItemExploreScreen extends StatelessWidget {
           mainAxisSpacing: 34,
         ),
         itemBuilder: (context, index) => InkWell(
-          onTap: onTap ,
+          onTap: () {
+            onTap(index);
+          },
           child: CustomStackExploreScreen(
             number: index + 1,
             exploreScreenModel: ConstListValues.listExploreScreenModel[index],

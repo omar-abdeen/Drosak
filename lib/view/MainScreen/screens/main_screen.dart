@@ -26,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _controller.gertArgument(context);
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBarMainScreen(
         outPutBottomNavBar: _controller.outputBottomNavBar,
@@ -37,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
       body: StreamBuilder(
         stream: _controller.outputBody,
         builder: (context, snapshot) => MainScreenController
-            .listBottomNavBarModel[snapshot.data==null ? 0 : snapshot.data!]
+            .listBottomNavBarModel[snapshot.data == null ? 0 : snapshot.data!]
             .screen,
       ),
     );

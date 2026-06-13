@@ -91,6 +91,7 @@ class ConstValue {
   static const String kStatus="kStatus";
   static const String kPhotoLibrary="Photo Library";
   static const String kTakePhoto="Take Photo";
+  static const String kRoutesName="kRoutesName";
   static const String kChooseFile="اختيار صورة";
 
   static const String kAddedNewStudentSucces="تم اضافه طالب جديد بنجاح";
