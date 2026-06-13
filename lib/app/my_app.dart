@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: ColorManager.kBlackColor,
           ),
         routes: RoutesManager.routes,
-        initialRoute: RoutesName.kSplashScreenRoute,
+        initialRoute: RoutesName.kExploreAppScreen,
         debugShowCheckedModeBanner: false,
             ),
       );

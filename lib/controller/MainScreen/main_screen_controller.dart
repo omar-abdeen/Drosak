@@ -42,10 +42,12 @@ class MainScreenController {
     controllerBottomNavBar.close();
   }
   void gertArgument(BuildContext context) {
-    var arg = ModalRoute.of(context)!.settings.arguments as Map;
-    currentIndexScreen = int.parse(arg[ConstValue.kScreenIndex].toString());
-    inputBody.add(currentIndexScreen);
-    inputBottomNavBar.add(currentIndexScreen);
+    var arg = ModalRoute.of(context)!.settings.arguments;
+    if (arg != null && arg is Map) {
+      currentIndexScreen = int.parse(arg[ConstValue.kScreenIndex].toString());
+      inputBody.add(currentIndexScreen);
+      inputBottomNavBar.add(currentIndexScreen);
+    }
   }
   static List<BottomNavBarModel> listBottomNavBarModel = [
     BottomNavBarModel(

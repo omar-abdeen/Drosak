@@ -33,7 +33,7 @@ class CustomBottomNavBarMainScreen extends StatelessWidget {
                 label: listIcon[i].text,
                 icon: SvgPicture.asset(
                   colorFilter: ColorFilter.mode(
-                    (snapshot.data! ?? 0) == i
+                    (snapshot.data ?? 0) == i
                         ? ColorManager.kPrimaryColor
                         : ColorManager.kGreyLight,
                     BlendMode.srcIn,
