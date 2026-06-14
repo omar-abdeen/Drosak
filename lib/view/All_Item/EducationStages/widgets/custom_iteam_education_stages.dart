@@ -1,13 +1,18 @@
-import 'package:drosak/core/resources/assets_values_mananger.dart';
 import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/core/resources/fonts_manager.dart';
 import 'package:drosak/core/resources/height_manager.dart';
 import 'package:drosak/core/resources/margin_manager.dart';
+import 'package:drosak/model/Education/education_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomItemEducationStages extends StatelessWidget {
-  const CustomItemEducationStages({super.key});
+  const CustomItemEducationStages({
+    super.key,
+    required this.itemEducationModel,
+  });
+
+  final EducationModel itemEducationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +29,10 @@ class CustomItemEducationStages extends StatelessWidget {
               borderRadius: BorderRadius.circular(22),
               boxShadow: [
                 BoxShadow(
-                 color: ColorManager.kPrimaryColor2,
-                blurRadius: 5,
-                spreadRadius: 1,
-                blurStyle: BlurStyle.outer,
+                  color: ColorManager.kPrimaryColor2,
+                  blurRadius: 5,
+                  spreadRadius: 1,
+                  blurStyle: BlurStyle.outer,
                 ),
               ],
             ),
@@ -64,7 +69,7 @@ class CustomItemEducationStages extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "الصف الأول الاعدادي",
+                        itemEducationModel.StagesName,
                         style: TextStyle(
                           color: ColorManager.kWhiteColor,
                           fontSize: FontsSize.f20,
@@ -73,7 +78,7 @@ class CustomItemEducationStages extends StatelessWidget {
                       ),
                       SizedBox(height: HeightManager.h5),
                       Text(
-                        "تلك الصف هو الصف الاعدادي وفي ثلاث طلاب مثلاتلك الصف هو الصف الاعدادي وفي ثلاث طلاب مثلاتلك الصف هو الصف الاعدادي وفي ثلاث طلاب مثلا",
+                        itemEducationModel.desc,
                         style: TextStyle(
                           color: ColorManager.kWhiteColor.withOpacity(0.7),
                           fontSize: FontsSize.f10,
@@ -86,7 +91,7 @@ class CustomItemEducationStages extends StatelessWidget {
 
                 ClipRRect(
                   child: Image.asset(
-                    AssetsValuesManager.kTestImage,
+                    itemEducationModel.image,
                     width: 90.w,
                     height: 90.h,
                     fit: BoxFit.cover,
@@ -114,7 +119,7 @@ class CustomItemEducationStages extends StatelessWidget {
               radius: 18,
               backgroundColor: ColorManager.kPrimaryColor,
               child: Text(
-                "55",
+                itemEducationModel.id.toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: FontsSize.f15,

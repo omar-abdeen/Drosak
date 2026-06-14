@@ -1,6 +1,5 @@
-import 'package:drosak/core/resources/height_manager.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_app_bar.dart';
-import 'package:drosak/view/All_Item/EducationStages/widgets/custom_iteam_education_stages.dart';
+import 'package:drosak/view/All_Item/EducationStages/widgets/custom_list_view_education_stages.dart';
 import 'package:flutter/material.dart';
 
 class EducationStagesScreen extends StatefulWidget {
@@ -19,8 +18,7 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
         appBar: CustomAppBar(),
         body: Column(
           children: [
-            SizedBox(height: HeightManager.h35),
-            CustomItemEducationStages(),
+            CustomListViewEducationStages(),
           ],
         ),
       ),
