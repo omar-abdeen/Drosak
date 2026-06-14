@@ -29,9 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Spacer(),
           IconButton(
             icon: Icon(Icons.add_circle_outline),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: onPressedAddCircle,
           ),
           IconButton(
             icon: Icon(Icons.search),

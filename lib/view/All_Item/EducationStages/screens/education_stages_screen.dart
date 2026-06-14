@@ -1,3 +1,4 @@
+import 'package:drosak/controller/Education_stages/edcation_stades_controlloer.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_app_bar.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_list_view_education_stages.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +9,24 @@ class EducationStagesScreen extends StatefulWidget {
   @override
   State<EducationStagesScreen> createState() => _EducationStagesScreenState();
 }
-
 class _EducationStagesScreenState extends State<EducationStagesScreen> {
+  late EducationStatesController _controller;
+  @override
+  void initState() {
+    _controller = EducationStatesController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: CustomAppBar(),
+        appBar: CustomAppBar(
+          onPressedAddCircle: () {
+            _controller.openBottomSheet(context: context);
+          },
+        ),
         body: Column(
           children: [
             CustomListViewEducationStages(),
