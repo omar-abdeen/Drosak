@@ -9,6 +9,10 @@ class HeightManager {
   static double h16 = 16.h;
   static double h20 = 20.h;
   static double h24 = 24.h;
+  static double h25 = 25.h;
+  static double h26 = 26.h;
+  static double h30 = 30.h;
+  static double h35 = 35.h;
   static double h39 = 39.h;
   static double h40 = 40.h;
   static double h50 = 50.h;

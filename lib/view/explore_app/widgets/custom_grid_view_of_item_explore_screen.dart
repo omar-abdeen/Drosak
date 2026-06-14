@@ -10,7 +10,7 @@ class CustomGridViewOfItemExploreScreen extends StatelessWidget {
     return Expanded(
       child: GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        itemCount:ConstListValues.listExploreScreenModel.length,
+        itemCount: ConstListValues.listExploreScreenModel.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 138 / 108,
           crossAxisCount: 2,

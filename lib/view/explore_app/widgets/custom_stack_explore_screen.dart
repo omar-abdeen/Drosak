@@ -5,7 +5,11 @@ import 'package:drosak/view/explore_app/widgets/custom_shadow_containter_explore
 import 'package:flutter/material.dart';
 
 class CustomStackExploreScreen extends StatelessWidget {
-  const CustomStackExploreScreen({super.key, required this.exploreScreenModel, required this.number});
+  const CustomStackExploreScreen({
+    super.key,
+    required this.exploreScreenModel,
+    required this.number,
+  });
 
   final ExploreScreenModel exploreScreenModel;
   final int number;
