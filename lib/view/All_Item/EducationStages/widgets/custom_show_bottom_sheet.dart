@@ -14,10 +14,12 @@ class CustomShowBottomSheet extends StatelessWidget {
     super.key,
     required this.controllerNameEduction,
     required this.controllerDesEduction,
+    required this.onPressed,
   });
 
   final TextEditingController controllerNameEduction;
   final TextEditingController controllerDesEduction;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class CustomShowBottomSheet extends StatelessWidget {
             onSubmitted: (value) {},
           ),
           SizedBox(height: HeightManager.h20),
-          CustomMaterialButton(onPressed: () {}, text: ConstValue.kAdd),
+          CustomMaterialButton(onPressed: onPressed, text: ConstValue.kAdd),
         ],
       ),
     );

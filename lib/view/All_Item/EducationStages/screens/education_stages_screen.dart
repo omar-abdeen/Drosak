@@ -1,4 +1,5 @@
 import 'package:drosak/controller/Education_stages/edcation_stades_controlloer.dart';
+import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_app_bar.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_list_view_education_stages.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,12 @@ class EducationStagesScreen extends StatefulWidget {
   @override
   State<EducationStagesScreen> createState() => _EducationStagesScreenState();
 }
+
 class _EducationStagesScreenState extends State<EducationStagesScreen> {
   late EducationStatesController _controller;
   @override
   void initState() {
-    _controller = EducationStatesController();
+    _controller = EducationStatesController(EductionStagesOprations());
     super.initState();
   }
 
@@ -27,11 +29,7 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
             _controller.openBottomSheet(context: context);
           },
         ),
-        body: Column(
-          children: [
-            CustomListViewEducationStages(),
-          ],
-        ),
+        body: Column(children: [CustomListViewEducationStages()]),
       ),
     );
   }
