@@ -12,9 +12,17 @@ class EductionStagesOprations extends MySQLiteDatabase {
       },
     );
   }
-  Future<List<Map<String, dynamic>>> getAllEductionStages() async {
-    return select(
+
+  Future<List<EducationModel>> getAllEductionStages() async {
+    List<EducationModel> listEducationModel = [];
+    List<Map<String, Object?>> data = await select(
       tableName: MySQLiteDatabase.educationStagesTableName,
     );
+    for (var item in data) {
+      listEducationModel.add(
+       EducationModel.fromJson(item),
+      );
+    }
+    return listEducationModel;
   }
 }

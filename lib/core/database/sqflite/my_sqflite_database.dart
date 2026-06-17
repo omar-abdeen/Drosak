@@ -51,7 +51,8 @@ class MySQLiteDatabase extends Crud {
   }) async {
     // TODO: implement insert
     await _initDatabase();
-    int insertUsers = await _db!.insert(tableName, values);
+    var tableName2 = tableName;
+    int insertUsers = await _db!.insert(tableName2, values);
     int insertProducts = await _db!.insert(tableName, values);
     await _db!.close();
     return insertUsers > 0;
@@ -61,7 +62,7 @@ class MySQLiteDatabase extends Crud {
   Future<List<Map<String, Object?>>> select({required String tableName}) async {
     await _initDatabase();
     List<Map<String, Object?>> selectUsers = await _db!.query(tableName);
-    //List<Map<String, Object?>> selectProducts = await _db!.query("products");
+    // List<Map<String, Object?>> selectProducts = await _db!.query("products");
     await _db!.close();
     return selectUsers;
   }

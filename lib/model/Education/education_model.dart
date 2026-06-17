@@ -3,6 +3,10 @@ class EducationModel {
   final String StagesName;
   final String desc;
   final String image;
+  @override
+  String toString() {
+    return 'EducationModel(id: $id, StagesName: $StagesName, desc: $desc, image: $image)';
+  }
 
   EducationModel({
     required this.id,
@@ -10,4 +14,12 @@ class EducationModel {
     required this.desc,
     required this.image,
   });
+  factory EducationModel.fromJson(Map<String, dynamic> json) {
+    return EducationModel(
+      id: json['id'] as int,
+      StagesName: json['StagesName'] as String,
+      desc: json['desc'] as String,
+      image: json['image'] as String,
+    );
+  }
 }
