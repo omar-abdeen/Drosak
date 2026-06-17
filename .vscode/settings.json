@@ -1,3 +1,7 @@
 {
-    "cmake.sourceDirectory": "E:/Drosak/linux"
+    "cmake.sourceDirectory": "E:/Drosak/linux",
+    "cSpell.words": [
+        "AUTOINCREMENT",
+        "Oprations"
+    ]
 }

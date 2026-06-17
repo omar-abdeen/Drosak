@@ -1,14 +1,16 @@
 import 'package:drosak/core/database/sqflite/crud.dart';
+import 'package:drosak/model/Education/education_model.dart';
+import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' as sqfliteDatabase;
 
 class MySQLiteDatabase extends Crud {
   sqfliteDatabase.Database? _db;
-  static final String _educationStagesTableName = "educationStagesTableName";
-  static final String _educationStagesId = "id";
-  static final String _educationStagesStagesName = "StagesName";
-  static final String _educationStagesDesc = "desc";
-  static final String _educationStagesImage = "image";
+  static final String educationStagesTableName = "educationStagesTableName";
+  static final String educationStagesId = "id";
+  static final String educationStagesStagesName = "StagesName";
+  static final String educationStagesDesc = "desc";
+  static final String educationStagesImage = "image";
 
   Future<sqfliteDatabase.Database> _initDatabase() async {
     String databasePath = await sqfliteDatabase.getDatabasesPath();
@@ -23,11 +25,10 @@ class MySQLiteDatabase extends Crud {
     return _db!;
   }
 
-  _onCrate(sqfliteDatabase.Database db, int version) async {
+  Future<void> _onCrate(sqfliteDatabase.Database db, int version) async {
     await db.execute(
-      "CREATE TABLE $_educationStagesTableName($_educationStagesId INTEGER PRIMARY KEY AUTOINCREMENT, $_educationStagesStagesName TEXT, $_educationStagesDesc TEXT, $_educationStagesImage TEXT)",
+      "CREATE TABLE $educationStagesTableName($educationStagesId INTEGER PRIMARY KEY AUTOINCREMENT, $educationStagesStagesName TEXT, $educationStagesDesc TEXT, $educationStagesImage TEXT)",
     );
-
   }
 
   @override
