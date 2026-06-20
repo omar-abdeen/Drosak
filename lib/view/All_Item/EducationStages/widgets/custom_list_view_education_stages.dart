@@ -19,7 +19,7 @@ class _CustomListViewEducationStagesState extends State<CustomListViewEducationS
   @override
   void initState() {
     super.initState();
-    _educationStatesController = EducationStatesController(EductionStagesOprations());
+    _educationStatesController = EducationStatesController();
   }
 
 

@@ -8,11 +8,13 @@ class EducationStatesController {
   ];
   TextEditingController controllerAddEducation = TextEditingController();
   TextEditingController controllerDescEducation = TextEditingController();
-  final EductionStagesOprations eductionStagesOprations;
-  EducationStatesController(this.eductionStagesOprations) {
+
+  EducationStatesController() {
     initialize();
   }
   void initialize() async {
+    EductionStagesOprations eductionStagesOprations =
+        EductionStagesOprations();
     var listEducationModel = await eductionStagesOprations
         .getAllEductionStages();
     print("listEducationModel: $listEducationModel");
@@ -35,6 +37,8 @@ class EducationStatesController {
   }
 
   void addNewEducation() async {
+    EductionStagesOprations eductionStagesOprations =
+        EductionStagesOprations();
     // ignore: unused_local_variable
     bool inserted = await eductionStagesOprations.insertEductionStages(
       EducationModel(

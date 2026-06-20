@@ -15,7 +15,7 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
   late EducationStatesController _controller;
   @override
   void initState() {
-    _controller = EducationStatesController(EductionStagesOprations());
+    _controller = EducationStatesController();
     super.initState();
   }
 

@@ -5,11 +5,7 @@ class EductionStagesOprations extends MySQLiteDatabase {
   Future<bool> insertEductionStages(EducationModel educationModel) async {
     return insert(
       tableName: MySQLiteDatabase.educationStagesTableName,
-      values: {
-        MySQLiteDatabase.educationStagesStagesName: educationModel.StagesName,
-        MySQLiteDatabase.educationStagesDesc: educationModel.desc,
-        MySQLiteDatabase.educationStagesImage: educationModel.image,
-      },
+      values: educationModel.toJson(),
     );
   }
 
@@ -18,11 +14,7 @@ class EductionStagesOprations extends MySQLiteDatabase {
     List<Map<String, Object?>> data = await select(
       tableName: MySQLiteDatabase.educationStagesTableName,
     );
-    for (var item in data) {
-      listEducationModel.add(
-       EducationModel.fromJson(item),
-      );
-    }
+    listEducationModel+=data.map((item) => EducationModel.fromJson(item)).toList();
     return listEducationModel;
   }
 }
