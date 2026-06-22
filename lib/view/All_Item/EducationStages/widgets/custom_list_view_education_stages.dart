@@ -1,8 +1,6 @@
-import 'dart:async';
 
 import 'package:drosak/controller/Education_stages/edcation_stades_controlloer.dart';
 import 'package:drosak/core/resources/height_manager.dart';
-import 'package:drosak/model/Education/education_model.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_iteam_education_stages.dart';
 import 'package:flutter/material.dart';
 

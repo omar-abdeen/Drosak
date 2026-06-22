@@ -20,14 +20,14 @@ class CustomShowBottomSheet extends StatelessWidget {
     required this.onPressedAdd,
     required this.onPressedPickImage,
     required this.onPressedDeleteImage,
-    this.imagePath,
+    required this.outputImagePath,
   });
   final VoidCallback onPressedPickImage;
   final TextEditingController controllerNameEduction;
   final TextEditingController controllerDesEduction;
   final VoidCallback onPressedAdd;
-   final VoidCallback onPressedDeleteImage;
-  final String? imagePath;
+  final VoidCallback onPressedDeleteImage;
+  final Stream<String?> outputImagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -91,34 +91,51 @@ class CustomShowBottomSheet extends StatelessWidget {
                 onSubmitted: (value) {},
               ),
               SizedBox(height: HeightManager.h20),
-              if (imagePath != null)
-                Stack(
-                  children: [
-                    Image.file(
-                      errorBuilder: (context, error, stackTrace) {
-                        print(imagePath);
-                        return Text(
-                          'Error loading image',
-                          style: TextStyle(color: Colors.red),
-                        );
-                      },
-                      File(imagePath!),
-                      width: 200.w,
-                      height: 200.h,
-                      fit: BoxFit.cover,
-                    ),
-                    IconButton(
-                      onPressed: onPressedDeleteImage,
-                       style: IconButton.styleFrom(
-                      backgroundColor: ColorManager.kPrimaryColor,
-                    ),
-                      icon: Icon(Icons.delete, color: ColorManager.kWhiteColor),
-                    ),
-                  ],
-                ),
-                if (imagePath != null)
+              StreamBuilder(
+                stream: outputImagePath,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    return Column(
+                      children: [
+                        if (snapshot.data != null)
+                          Stack(
+                            children: [
+                              Image.file(
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Text(
+                                    'Error loading image',
+                                    style: TextStyle(color: Colors.red),
+                                  );
+                                },
+                                File(snapshot.data!),
+                                width: 200.w,
+                                height: 200.h,
+                                fit: BoxFit.cover,
+                              ),
+                              IconButton(
+                                onPressed: onPressedDeleteImage,
+                                style: IconButton.styleFrom(
+                                  backgroundColor: ColorManager.kPrimaryColor,
+                                ),
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: ColorManager.kWhiteColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
+                },
+              ),
               SizedBox(height: HeightManager.h20),
-              CustomMaterialButton(onPressed: onPressedAdd, text: ConstValue.kAdd),
+              CustomMaterialButton(
+                onPressed: onPressedAdd,
+                text: ConstValue.kAdd,
+              ),
             ],
           ),
         ),

@@ -14,6 +14,9 @@ class EducationStatesController {
   late StreamController<List<EducationModel>> controllerEducationStages;
   late Sink<List<EducationModel>> inputEducationStages;
   late Stream<List<EducationModel>> outputEducationStages;
+  late StreamController<String?> controllerImagePath;
+  late Sink<String?> inputImagePath;
+  late Stream<String?> outputImagePath;
 
   EducationStatesController() {
     initialize();
@@ -21,13 +24,20 @@ class EducationStatesController {
   void ControllerEducation() {
     controllerEducationStages = StreamController();
     inputEducationStages = controllerEducationStages.sink;
-    outputEducationStages = controllerEducationStages.stream.asBroadcastStream();
+    outputEducationStages = controllerEducationStages.stream
+        .asBroadcastStream();
     inputEducationStages.add(listEducationModel);
+    controllerImagePath = StreamController();
+    inputImagePath = controllerImagePath.sink;
+    outputImagePath = controllerImagePath.stream;
+    inputImagePath.add(imagePath);
   }
 
   void disposeController() {
     controllerEducationStages.close();
     inputEducationStages.close();
+    controllerImagePath.close();
+    inputImagePath.close();
   }
 
   void initialize() async {
@@ -44,6 +54,7 @@ class EducationStatesController {
     if (image != null) {
       imagePath = image.path;
     }
+    inputImagePath.add(imagePath);
     // Capture a photo.
     // var photo = await picker.pickImage(source: ImageSource.camera);
   }
@@ -54,10 +65,11 @@ class EducationStatesController {
       builder: (context) => Directionality(
         textDirection: TextDirection.rtl,
         child: CustomShowBottomSheet(
+          outputImagePath: outputImagePath,
           onPressedDeleteImage: () {
             imagePath = null;
+            inputImagePath.add(imagePath);
           },
-          imagePath: imagePath,
           onPressedPickImage: () {
             pickerImage();
           },

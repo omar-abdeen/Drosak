@@ -17,6 +17,10 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
     _controller = EducationStatesController();
     super.initState();
   }
+  void dispose() {
+    _controller.disposeController();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
