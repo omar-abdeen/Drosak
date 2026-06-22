@@ -1,5 +1,4 @@
 import 'package:drosak/controller/Education_stages/edcation_stades_controlloer.dart';
-import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_app_bar.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_list_view_education_stages.dart';
 import 'package:flutter/material.dart';

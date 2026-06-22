@@ -1,5 +1,4 @@
 import 'package:drosak/core/resources/colors_manager.dart';
-import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/core/resources/fonts_manager.dart';
 import 'package:drosak/core/resources/padding_manager.dart';
 import 'package:drosak/core/resources/radius_values_manager.dart';

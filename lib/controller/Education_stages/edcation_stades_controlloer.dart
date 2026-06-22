@@ -1,23 +1,51 @@
+import 'dart:async';
+
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
 import 'package:drosak/model/Education/education_model.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_show_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EducationStatesController {
-  List<EducationModel> listEducationModel = [
-  ];
+  List<EducationModel> listEducationModel = [];
   TextEditingController controllerAddEducation = TextEditingController();
   TextEditingController controllerDescEducation = TextEditingController();
+  String? imagePath;
+  late StreamController<List<EducationModel>> controllerEducationStages;
+  late Sink<List<EducationModel>> inputEducationStages;
+  late Stream<List<EducationModel>> outputEducationStages;
 
   EducationStatesController() {
     initialize();
   }
+  void ControllerEducation() {
+    controllerEducationStages = StreamController();
+    inputEducationStages = controllerEducationStages.sink;
+    outputEducationStages = controllerEducationStages.stream.asBroadcastStream();
+    inputEducationStages.add(listEducationModel);
+  }
+
+  void disposeController() {
+    controllerEducationStages.close();
+    inputEducationStages.close();
+  }
+
   void initialize() async {
-    EductionStagesOprations eductionStagesOprations =
-        EductionStagesOprations();
-    var listEducationModel = await eductionStagesOprations
-        .getAllEductionStages();
-    print("listEducationModel: $listEducationModel");
+    ControllerEducation();
+    EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
+    listEducationModel = await eductionStagesOprations.getAllEductionStages();
+    inputEducationStages.add(listEducationModel);
+  }
+
+  void pickerImage() async {
+    final picker = ImagePicker();
+    // Pick an image.
+    var image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      imagePath = image.path;
+    }
+    // Capture a photo.
+    // var photo = await picker.pickImage(source: ImageSource.camera);
   }
 
   void openBottomSheet({required BuildContext context}) {
@@ -26,9 +54,16 @@ class EducationStatesController {
       builder: (context) => Directionality(
         textDirection: TextDirection.rtl,
         child: CustomShowBottomSheet(
+          onPressedDeleteImage: () {
+            imagePath = null;
+          },
+          imagePath: imagePath,
+          onPressedPickImage: () {
+            pickerImage();
+          },
           controllerNameEduction: controllerAddEducation,
           controllerDesEduction: controllerDescEducation,
-          onPressed: () {
+          onPressedAdd: () {
             addNewEducation();
           },
         ),
@@ -37,16 +72,17 @@ class EducationStatesController {
   }
 
   void addNewEducation() async {
-    EductionStagesOprations eductionStagesOprations =
-        EductionStagesOprations();
+    EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
+    print(imagePath);
     // ignore: unused_local_variable
     bool inserted = await eductionStagesOprations.insertEductionStages(
       EducationModel(
         id: listEducationModel.length + 1,
         StagesName: controllerAddEducation.text,
         desc: controllerDescEducation.text,
-        image: "assets/images/test.png",
+        image: imagePath == null ? "" : imagePath!,
       ),
     );
+    print({"inserted": inserted});
   }
 }

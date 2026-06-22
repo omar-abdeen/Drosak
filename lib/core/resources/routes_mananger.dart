@@ -4,7 +4,7 @@ import 'package:drosak/view/All_Item/Groups/screens/groups_screen.dart';
 import 'package:drosak/view/All_Item/Paying/screens/paying_screen.dart';
 import 'package:drosak/view/All_Item/Students/screens/students_screen.dart';
 import 'package:drosak/view/MainScreen/screens/main_screen.dart';
-import 'package:drosak/view/OnBoardingScreen/screens/On_boarding_screen.dart';
+import 'package:drosak/view/OnBoardingScreen/screens/on_boarding_screen.dart';
 import 'package:drosak/view/explore_app/screens/explore_app_screen.dart';
 import 'package:drosak/view/splash_screen/screens/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,7 +35,7 @@ class RoutesName {
   static String kEducationStagesRoute = '/kEducationStagesRoute';
   static String kAudienceRoute = '/kAudienceRoute';
   static String kGroupsRoute = '/kGroupsRoute';
-  static String kStudentsRoute = '/kMainScreen';
+  static String kStudentsRoute = '/kStudentsRoute';
   static String kAddNewGroupScreen = '/kAddNewGroupScreen';
   static String kAddNewStudentsScreen = '/kAddStudentsScreen';
 }

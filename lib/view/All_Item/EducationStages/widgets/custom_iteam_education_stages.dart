@@ -1,10 +1,16 @@
+import 'dart:io';
+
+import 'package:drosak/core/resources/assets_values_mananger.dart';
 import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/core/resources/fonts_manager.dart';
 import 'package:drosak/core/resources/height_manager.dart';
 import 'package:drosak/core/resources/margin_manager.dart';
+import 'package:drosak/core/resources/radius_values_manager.dart';
+import 'package:drosak/core/resources/width_manager.dart';
 import 'package:drosak/model/Education/education_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomItemEducationStages extends StatelessWidget {
   const CustomItemEducationStages({
@@ -90,10 +96,16 @@ class CustomItemEducationStages extends StatelessWidget {
                 ),
 
                 ClipRRect(
-                  child: Image.asset(
-                    itemEducationModel.image,
-                    width: 90.w,
-                    height: 90.h,
+                  borderRadius: BorderRadius.circular(RadiusValuesManager.br50),
+                  child: Image.file(
+                    errorBuilder: (context, error, stackTrace) =>
+                        SvgPicture.asset(
+                          AssetsValuesManager.kPlaceholderSvg,
+                          width: WidthManager.w70,
+                        ),
+                    File(itemEducationModel.image),
+                    width: WidthManager.w70,
+                    height: HeightManager.h70,
                     fit: BoxFit.cover,
                   ),
                 ),

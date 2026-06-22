@@ -1,6 +1,4 @@
 import 'package:drosak/core/database/sqflite/crud.dart';
-import 'package:drosak/model/Education/education_model.dart';
-import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' as sqfliteDatabase;
 
@@ -39,7 +37,6 @@ class MySQLiteDatabase extends Crud {
     // TODO: implement delete
     await _initDatabase();
     int deleteUsers = await _db!.delete(tableName, where: where);
-    int deleteProducts = await _db!.delete(tableName, where: where);
     await _db!.close();
     return deleteUsers > 0;
   }
@@ -53,7 +50,6 @@ class MySQLiteDatabase extends Crud {
     await _initDatabase();
     var tableName2 = tableName;
     int insertUsers = await _db!.insert(tableName2, values);
-    int insertProducts = await _db!.insert(tableName, values);
     await _db!.close();
     return insertUsers > 0;
   }
