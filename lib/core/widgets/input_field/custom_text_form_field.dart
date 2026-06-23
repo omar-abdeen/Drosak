@@ -5,17 +5,20 @@ import 'package:drosak/core/resources/radius_values_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
- const CustomTextFormField({
+  const CustomTextFormField({
     super.key,
     required this.controller,
-    this.hintText, this.onSubmitted, this.maxLines=1,
-
+    this.hintText,
+    this.onSubmitted,
+    this.maxLines = 1,
+    required this.validator,
   });
 
   final TextEditingController controller;
   final String? hintText;
   final ValueChanged<String>? onSubmitted;
   final int? maxLines;
+  final FormFieldValidator<String> validator;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       onFieldSubmitted: onSubmitted,
       maxLines: maxLines,
+      validator: validator,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(RadiusValuesManager.br12),

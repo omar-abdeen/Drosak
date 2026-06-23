@@ -21,6 +21,7 @@ class CustomShowBottomSheet extends StatelessWidget {
     required this.onPressedPickImage,
     required this.onPressedDeleteImage,
     required this.outputImagePath,
+    required this.formKey,
   });
   final VoidCallback onPressedPickImage;
   final TextEditingController controllerNameEduction;
@@ -28,6 +29,7 @@ class CustomShowBottomSheet extends StatelessWidget {
   final VoidCallback onPressedAdd;
   final VoidCallback onPressedDeleteImage;
   final Stream<String?> outputImagePath;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +63,19 @@ class CustomShowBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: CustomTextFormField(
-                      controller: controllerNameEduction,
-                      hintText: ConstValue.kNameEducationalStages,
-                      onSubmitted: (value) {},
+                    child: Form(
+                      key: formKey,
+                      child: CustomTextFormField(
+                        controller: controllerNameEduction,
+                        hintText: ConstValue.kNameEducationalStages,
+                        onSubmitted: (value) {},
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the educational stage name';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(width: WidthManager.w6),
@@ -89,6 +100,12 @@ class CustomShowBottomSheet extends StatelessWidget {
                 controller: controllerDesEduction,
                 hintText: ConstValue.kDescEducationalStage,
                 onSubmitted: (value) {},
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the educational stage description';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: HeightManager.h20),
               StreamBuilder(

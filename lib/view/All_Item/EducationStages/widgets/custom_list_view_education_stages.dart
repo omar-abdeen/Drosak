@@ -1,4 +1,3 @@
-
 import 'package:drosak/controller/Education_stages/edcation_stades_controlloer.dart';
 import 'package:drosak/core/resources/height_manager.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_iteam_education_stages.dart';
@@ -15,6 +14,7 @@ class CustomListViewEducationStages extends StatefulWidget {
 class _CustomListViewEducationStagesState
     extends State<CustomListViewEducationStages> {
   late EducationStatesController _educationStatesController;
+
   @override
   void initState() {
     super.initState();
@@ -25,18 +25,24 @@ class _CustomListViewEducationStagesState
     return Expanded(
       child: StreamBuilder(
         stream: _educationStatesController.outputEducationStages,
+        initialData: _educationStatesController.listEducationModel,
         builder: (context, snapshot) {
-          return snapshot.connectionState == ConnectionState.waiting
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
-                  itemBuilder: (context, index) => CustomItemEducationStages(
-                    itemEducationModel: snapshot.data![index],
-                  ),
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: HeightManager.h35),
-                  itemCount: snapshot.data!.length,
-                );
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              (!snapshot.hasData || snapshot.data!.isEmpty)) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final list = snapshot.data;
+          if (list == null || list.isEmpty) {
+            return const Center(child: Text("لا توجد مراحل تعليمية مضافة"));
+          }
+          return ListView.separated(
+            padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
+            itemBuilder: (context, index) =>
+                CustomItemEducationStages(itemEducationModel: list[index]),
+            separatorBuilder: (context, index) =>
+                SizedBox(height: HeightManager.h35),
+            itemCount: list.length,
+          );
         },
       ),
     );

@@ -1,4 +1,3 @@
-
 import 'package:drosak/core/resources/assets_values_mananger.dart';
 import 'package:drosak/model/explore/explore_model.dart';
 import 'package:drosak/model/onboarding/on_boarding_model.dart';
@@ -20,12 +19,13 @@ class ConstValue {
   static const String kEducationalStages = 'المراحل التعليمية';
   static const String kChooseEducationStage = 'اختر المرحله التعليمية';
   static const String kChooseGroup = 'اختر المجموعة';
-  static const String kChooseAntherStageEducation = 'اختر مرحله تعليميه اخري لكي يظهر لك المجموعات';
+  static const String kChooseAntherStageEducation =
+      'اختر مرحله تعليميه اخري لكي يظهر لك المجموعات';
   static const String kAddSomeAppointment = 'اضف بعض المواعيد';
   static const String kNameEducationalStages = 'اسم المرحله التعليميه';
   static const String kNameGroup = 'اسم المجموعه ';
   static const String kNameStudent = 'اسم الطالب ';
-   static const String kAddNameOfGroup = 'اضف اسم المجموعه ';
+  static const String kAddNameOfGroup = 'اضف اسم المجموعه ';
   static const String kDescEducationalStage = 'وصف المرحله التعليميه';
   static const String kDescGroup = 'وصف المجموعة ';
   static const String kNote = 'ملاحظة';
@@ -78,60 +78,69 @@ class ConstValue {
   static const String kThursday = 'الخميس';
   static const String kFriday = 'الجمعة';
   static const String kNoTimeAndDayYetAdd = 'لم يتم إضافه يوم وميعاد بعد';
-  static const String kNoTimeAndDayBecauseYouDontChooseGroup = 'لا يوجد يوم أو وقت لانك لم تختار جروب بعد';
+  static const String kNoTimeAndDayBecauseYouDontChooseGroup =
+      'لا يوجد يوم أو وقت لانك لم تختار جروب بعد';
 
-  static const String kPM="م";
-  static const String kAM="ص";
-  static const String kChoose="اختار";
-  static const String kCancel="إلفاء";
-  static const String kCountOfAppointmentAdded="عدد المواعيد المضافه";
+  static const String kPM = "م";
+  static const String kAM = "ص";
+  static const String kChoose = "اختار";
+  static const String kCancel = "إلفاء";
+  static const String kCountOfAppointmentAdded = "عدد المواعيد المضافه";
 
-  static const String kGroupInfoModel="kGroupInfoModel";
-  static const String kStudentModel="kStudentModel";
-  static const String kStatus="kStatus";
-  static const String kPhotoLibrary="Photo Library";
-  static const String kTakePhoto="Take Photo";
-  static const String kRoutesName="kRoutesName";
-  static const String kChooseFile="اختيار صورة";
-
-  static const String kAddedNewStudentSucces="تم اضافه طالب جديد بنجاح";
-  static const String kUpdateThisStudentSucces="تم تعديل بيانات الطالب بنجاح";
-
-
+  static const String kGroupInfoModel = "kGroupInfoModel";
+  static const String kStudentModel = "kStudentModel";
+  static const String kStatus = "kStatus";
+  static const String kRoutesName = "kRoutesName";
+  static const String kChooseFile = "اختيار صورة";
+  static const String kPhotoLibrary = 'معرض الصور';
+  static const String kTakePhoto = 'الكاميرا';
+  static const String kSelectImageSource = 'اختر مصدر الصورة';
 }
 
 class ConstListValues {
-  static  List<OnBoardingModel> listOnBoardingModel = [
+  static List<OnBoardingModel> listOnBoardingModel = [
     OnBoardingModel(
-        text: ConstValue.kOnBoardingText1,
-        image: AssetsValuesManager.kOnBoardingImage1),
+      text: ConstValue.kOnBoardingText1,
+      image: AssetsValuesManager.kOnBoardingImage1,
+    ),
     OnBoardingModel(
-        text: ConstValue.kOnBoardingText2,
-        image: AssetsValuesManager.kOnBoardingImage2),
+      text: ConstValue.kOnBoardingText2,
+      image: AssetsValuesManager.kOnBoardingImage2,
+    ),
     OnBoardingModel(
-        text: ConstValue.kOnBoardingText3,
-        image: AssetsValuesManager.kOnBoardingImage3),
+      text: ConstValue.kOnBoardingText3,
+      image: AssetsValuesManager.kOnBoardingImage3,
+    ),
     OnBoardingModel(
-        text: ConstValue.kOnBoardingText4,
-        image: AssetsValuesManager.kOnBoardingImage4),
+      text: ConstValue.kOnBoardingText4,
+      image: AssetsValuesManager.kOnBoardingImage4,
+    ),
     OnBoardingModel(
-        text: ConstValue.kOnBoardingText5,
-        image: AssetsValuesManager.kOnBoardingImage5),
+      text: ConstValue.kOnBoardingText5,
+      image: AssetsValuesManager.kOnBoardingImage5,
+    ),
   ];
-  static  List<ExploreScreenModel> listExploreScreenModel = [
+  static List<ExploreScreenModel> listExploreScreenModel = [
     ExploreScreenModel(
-        text: ConstValue.kEducationalStages,
-        image: AssetsValuesManager.kOnBoardingImage1),
+      text: ConstValue.kEducationalStages,
+      image: AssetsValuesManager.kOnBoardingImage1,
+    ),
     ExploreScreenModel(
-        text: ConstValue.kGroups, image: AssetsValuesManager.kOnBoardingImage2),
+      text: ConstValue.kGroups,
+      image: AssetsValuesManager.kOnBoardingImage2,
+    ),
     ExploreScreenModel(
-        text: ConstValue.kStudents,
-        image: AssetsValuesManager.kOnBoardingImage3),
+      text: ConstValue.kStudents,
+      image: AssetsValuesManager.kOnBoardingImage3,
+    ),
     ExploreScreenModel(
-        text: ConstValue.kTheAudience,
-        image: AssetsValuesManager.kOnBoardingImage4),
+      text: ConstValue.kTheAudience,
+      image: AssetsValuesManager.kOnBoardingImage4,
+    ),
     ExploreScreenModel(
-        text: ConstValue.kPaying, image: AssetsValuesManager.kOnBoardingImage5),
+      text: ConstValue.kPaying,
+      image: AssetsValuesManager.kOnBoardingImage5,
+    ),
   ];
 
   static const List<String> listDays = [

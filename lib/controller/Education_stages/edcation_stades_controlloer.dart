@@ -1,12 +1,22 @@
 import 'dart:async';
 
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
+import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/model/Education/education_model.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_show_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EducationStatesController {
+  // 1. نسخة وحيدة وثابتة من الـ Controller
+  static final EducationStatesController _instance =
+      EducationStatesController._internal();
+
+  // 2. Factory constructor عشان يرجع نفس النسخة في كل مكان
+  factory EducationStatesController() {
+    return _instance;
+  }
+
   List<EducationModel> listEducationModel = [];
   TextEditingController controllerAddEducation = TextEditingController();
   TextEditingController controllerDescEducation = TextEditingController();
@@ -17,46 +27,85 @@ class EducationStatesController {
   late StreamController<String?> controllerImagePath;
   late Sink<String?> inputImagePath;
   late Stream<String?> outputImagePath;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  EducationStatesController() {
+  EducationStatesController._internal() {
     initialize();
   }
+
   void ControllerEducation() {
-    controllerEducationStages = StreamController();
+    controllerEducationStages =
+        StreamController<List<EducationModel>>.broadcast();
     inputEducationStages = controllerEducationStages.sink;
-    outputEducationStages = controllerEducationStages.stream
-        .asBroadcastStream();
+    outputEducationStages = controllerEducationStages.stream;
+
     inputEducationStages.add(listEducationModel);
-    controllerImagePath = StreamController();
+
+    controllerImagePath = StreamController<String?>.broadcast();
     inputImagePath = controllerImagePath.sink;
     outputImagePath = controllerImagePath.stream;
     inputImagePath.add(imagePath);
   }
 
   void disposeController() {
-    controllerEducationStages.close();
-    inputEducationStages.close();
-    controllerImagePath.close();
-    inputImagePath.close();
+    // لا نغلق الـ Streams لأن الـ Controller هو Singleton ويستخدم في عدة شاشات
+    controllerAddEducation.clear();
+    controllerDescEducation.clear();
+    imagePath = null;
+    inputImagePath.add(null);
   }
 
   void initialize() async {
     ControllerEducation();
+    getAllEducationStages();
+  }
+
+  void getAllEducationStages() async {
     EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
     listEducationModel = await eductionStagesOprations.getAllEductionStages();
     inputEducationStages.add(listEducationModel);
   }
 
-  void pickerImage() async {
+  void pickerImage(ImageSource source) async {
     final picker = ImagePicker();
-    // Pick an image.
-    var image = await picker.pickImage(source: ImageSource.gallery);
+    var image = await picker.pickImage(source: source);
     if (image != null) {
       imagePath = image.path;
     }
     inputImagePath.add(imagePath);
-    // Capture a photo.
-    // var photo = await picker.pickImage(source: ImageSource.camera);
+  }
+
+  void showCustomDialogChooseImage({required BuildContext context}) {
+    showDialog(
+      //barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(ConstValue.kSelectImageSource),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text(ConstValue.kPhotoLibrary),
+                onTap: () {
+                  Navigator.pop(context);
+                  pickerImage(ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text(ConstValue.kTakePhoto),
+                onTap: () {
+                  Navigator.pop(context);
+                  pickerImage(ImageSource.camera);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void openBottomSheet({required BuildContext context}) {
@@ -71,21 +120,42 @@ class EducationStatesController {
             inputImagePath.add(imagePath);
           },
           onPressedPickImage: () {
-            pickerImage();
+            showCustomDialogChooseImage(context: context);
           },
           controllerNameEduction: controllerAddEducation,
           controllerDesEduction: controllerDescEducation,
-          onPressedAdd: () {
-            addNewEducation();
+          onPressedAdd: () async {
+            if (formKey.currentState!.validate() == true) {
+              bool inserted = await addNewEducation();
+              if (inserted == true) {
+                listEducationModel.add(
+                  EducationModel(
+                    id: listEducationModel.length + 1,
+                    StagesName: controllerAddEducation.text,
+                    desc: controllerDescEducation.text,
+                    image: imagePath ?? "",
+                  ),
+                );
+                // إرسال نسخة جديدة من القائمة لضمان تحديث الـ UI
+                inputEducationStages.add(List.from(listEducationModel));
+
+                controllerAddEducation.clear();
+                controllerDescEducation.clear();
+                imagePath = null;
+                inputImagePath.add(null);
+
+                Navigator.pop(context);
+              }
+            }
           },
+          formKey: formKey,
         ),
       ),
     );
   }
 
-  void addNewEducation() async {
+  Future<bool> addNewEducation() async {
     EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
-    print(imagePath);
     // ignore: unused_local_variable
     bool inserted = await eductionStagesOprations.insertEductionStages(
       EducationModel(
@@ -95,6 +165,6 @@ class EducationStatesController {
         image: imagePath == null ? "" : imagePath!,
       ),
     );
-    print({"inserted": inserted});
+    return inserted;
   }
 }
