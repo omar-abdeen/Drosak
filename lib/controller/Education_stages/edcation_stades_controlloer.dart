@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
 import 'package:drosak/core/resources/const_values.dart';
@@ -6,6 +7,7 @@ import 'package:drosak/model/Education/education_model.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_show_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class EducationStatesController {
   // 1. نسخة وحيدة وثابتة من الـ Controller
@@ -37,13 +39,13 @@ class EducationStatesController {
     controllerEducationStages =
         StreamController<List<EducationModel>>.broadcast();
     inputEducationStages = controllerEducationStages.sink;
-    outputEducationStages = controllerEducationStages.stream;
+    outputEducationStages = controllerEducationStages.stream.asBroadcastStream();
 
     inputEducationStages.add(listEducationModel);
 
     controllerImagePath = StreamController<String?>.broadcast();
     inputImagePath = controllerImagePath.sink;
-    outputImagePath = controllerImagePath.stream;
+    outputImagePath = controllerImagePath.stream.asBroadcastStream();
     inputImagePath.add(imagePath);
   }
 
@@ -71,8 +73,16 @@ class EducationStatesController {
     var image = await picker.pickImage(source: source);
     if (image != null) {
       imagePath = image.path;
+      saveImageOfMyApp(image);
     }
     inputImagePath.add(imagePath);
+  }
+  void saveImageOfMyApp(XFile image)async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    var path = directory.path;
+    var finalPath = '$path/${image.name}';
+    File filePath = await File(image.path).copy(finalPath);
+    imagePath = filePath.path;
   }
 
   void showCustomDialogChooseImage({required BuildContext context}) {
