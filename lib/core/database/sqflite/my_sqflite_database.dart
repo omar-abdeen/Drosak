@@ -64,6 +64,23 @@ class MySQLiteDatabase extends Crud {
   }
 
   @override
+  Future<List<Map<String, Object?>>> search({
+    required String tableName,
+    required String searchWord,
+  }) async {
+    await _initDatabase();
+    List<Map<String, Object?>> data = await _db!.query(
+      tableName,
+      where: '$educationStagesStagesName LIKE ?',
+      whereArgs: ['%$searchWord%'],
+    );
+
+    // List<Map<String, Object?>> selectProducts = await _db!.query("products");
+    await _db!.close();
+    return data;
+  }
+
+  @override
   Future<bool> update({
     required String tableName,
     required Map<String, Object?> values,

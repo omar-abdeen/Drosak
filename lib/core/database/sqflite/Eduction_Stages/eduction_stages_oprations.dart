@@ -17,4 +17,13 @@ class EductionStagesOprations extends MySQLiteDatabase {
     listEducationModel+=data.map((item) => EducationModel.fromJson(item)).toList();
     return listEducationModel;
   }
+  Future<List<EducationModel>> searchEductionStages({required String searchWord}) async {
+    List<EducationModel> listEducationModel = [];
+    List<Map<String, Object?>> data = await search(
+      tableName: MySQLiteDatabase.educationStagesTableName,
+      searchWord: searchWord,
+    );
+    listEducationModel+=data.map((item) => EducationModel.fromJson(item)).toList();
+    return listEducationModel;
+  }
 }

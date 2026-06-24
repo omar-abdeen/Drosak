@@ -28,8 +28,12 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: CustomAppBar(
+          
           onPressedAddCircle: () {
             _controller.openBottomSheet(context: context);
+          },
+          onPressedSearch: () {
+            _controller.searchEducationStages( context);
           },
         ),
         body: Column(children: [CustomListViewEducationStages()]),

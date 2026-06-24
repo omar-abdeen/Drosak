@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
 import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/model/Education/education_model.dart';
+import 'package:drosak/view/All_Item/EducationStages/widgets/custom_search)eduction_stages.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_show_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -39,7 +40,8 @@ class EducationStatesController {
     controllerEducationStages =
         StreamController<List<EducationModel>>.broadcast();
     inputEducationStages = controllerEducationStages.sink;
-    outputEducationStages = controllerEducationStages.stream.asBroadcastStream();
+    outputEducationStages = controllerEducationStages.stream
+        .asBroadcastStream();
 
     inputEducationStages.add(listEducationModel);
 
@@ -77,7 +79,8 @@ class EducationStatesController {
     }
     inputImagePath.add(imagePath);
   }
-  void saveImageOfMyApp(XFile image)async {
+
+  void saveImageOfMyApp(XFile image) async {
     Directory directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
     var finalPath = '$path/${image.name}';
@@ -176,5 +179,9 @@ class EducationStatesController {
       ),
     );
     return inserted;
+  }
+
+  void searchEducationStages(BuildContext context) {
+    showSearch(context: context, delegate: CustomSearchDelegate());
   }
 }
