@@ -1,14 +1,38 @@
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
+import 'package:drosak/core/resources/colors_manager.dart';
 import 'package:drosak/model/Education/education_model.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_search_List_view_Eduction_stages.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    return super
+        .appBarTheme(context)
+        .copyWith(
+          appBarTheme: const AppBarTheme(
+            backgroundColor: ColorManager.kPrimaryColor,
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            hintStyle: TextStyle(color: ColorManager.kWhiteColor, fontSize: 20),
+          ),
+          textTheme: super
+              .appBarTheme(context)
+              .textTheme
+              .copyWith(
+                titleLarge: TextStyle(
+                  color: ColorManager.kWhiteColor,
+                  fontSize: 20,
+                ),
+              ),
+        );
+  }
+
+  @override
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const Icon(Icons.clear, color: ColorManager.kWhiteColor),
         onPressed: () {
           query = '';
         },
@@ -19,7 +43,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back, color: ColorManager.kWhiteColor),
       onPressed: () {
         close(context, '');
       },
