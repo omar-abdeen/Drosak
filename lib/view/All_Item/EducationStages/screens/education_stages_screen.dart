@@ -36,7 +36,10 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
             _controller.searchEducationStages( context);
           },
         ),
-        body: Column(children: [CustomListViewEducationStages()]),
+        body: Column(children: [CustomListViewEducationStages(
+          onDeleteItem: _controller.deleteEducationStages,
+          onEditItem: _controller.editEducationStages,
+        )]),
       ),
     );
   }

@@ -12,17 +12,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: must_be_immutable
 class CustomItemEducationStages extends StatelessWidget {
   const CustomItemEducationStages({
     super.key,
     required this.itemEducationModel,
+    required this.onDeleteItem,
+    required this.onEditItem,
   });
 
   final EducationModel itemEducationModel;
-
+  final void Function(EducationModel itemEducationModel) onDeleteItem;
+  final void Function(EducationModel itemEducationModel) onEditItem;
   @override
   Widget build(BuildContext context) {
     return Dismissible(
+      onDismissed: (direction) {
+        if (direction == DismissDirection.endToStart) {
+          onDeleteItem(itemEducationModel);
+        } else if (direction == DismissDirection.startToEnd) {
+          onEditItem(itemEducationModel);
+        }
+      },
       background: Container(
         color: Colors.red,
         alignment: Alignment.centerRight,
@@ -108,9 +119,11 @@ class CustomItemEducationStages extends StatelessWidget {
                       ],
                     ),
                   ),
-      
+
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(RadiusValuesManager.br50),
+                    borderRadius: BorderRadius.circular(
+                      RadiusValuesManager.br50,
+                    ),
                     child: Image.file(
                       errorBuilder: (context, error, stackTrace) =>
                           SvgPicture.asset(

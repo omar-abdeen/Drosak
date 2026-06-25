@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drosak/core/database/sqflite/crud.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' as sqfliteDatabase;
@@ -9,7 +11,7 @@ class MySQLiteDatabase extends Crud {
   static final String educationStagesStagesName = "StagesName";
   static final String educationStagesDesc = "desc";
   static final String educationStagesImage = "image";
-
+  static final String educationStagesStatus = "status";
   Future<sqfliteDatabase.Database> _initDatabase() async {
     String databasePath = await sqfliteDatabase.getDatabasesPath();
     String drosakDatabaseName = "drosak.db";
@@ -18,14 +20,32 @@ class MySQLiteDatabase extends Crud {
     _db ??= await sqfliteDatabase.openDatabase(
       realDatabasePath,
       onCreate: _onCrate,
+      onUpgrade: _onUpgrade,
       version: versionDatabase,
     );
     return _db!;
   }
 
+  FutureOr<void> _onUpgrade(sqfliteDatabase.Database db, int oldVersion, int newVersion) async {
+    await (db.execute('DROP TABLE IF EXISTS $educationStagesTableName'));
+    await db.execute(
+      "CREATE TABLE IF NOT EXISTS $educationStagesTableName"
+      " ( $educationStagesId INTEGER PRIMARY KEY AUTOINCREMENT ,"
+      "  $educationStagesStagesName TEXT , "
+      "  $educationStagesDesc TEXT , "
+      "  $educationStagesStatus INTEGER DEFAULT 1 , "
+      "  $educationStagesImage  TEXT )",
+    );
+  }
+
   Future<void> _onCrate(sqfliteDatabase.Database db, int version) async {
     await db.execute(
-      "CREATE TABLE $educationStagesTableName($educationStagesId INTEGER PRIMARY KEY AUTOINCREMENT, $educationStagesStagesName TEXT, $educationStagesDesc TEXT, $educationStagesImage TEXT)",
+      "CREATE TABLE IF NOT EXISTS $educationStagesTableName"
+      " ( $educationStagesId INTEGER PRIMARY KEY AUTOINCREMENT ,"
+      "  $educationStagesStagesName TEXT , "
+      "  $educationStagesDesc TEXT , "
+      "  $educationStagesStatus INTEGER DEFAULT 1 , "
+      "  $educationStagesImage  TEXT )",
     );
   }
 

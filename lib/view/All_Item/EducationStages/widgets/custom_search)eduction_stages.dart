@@ -59,6 +59,8 @@ class CustomSearchDelegate extends SearchDelegate<String> {
             getSearchItems: eductionStagesOprations.searchEductionStages(
               searchWord: query,
             ),
+            onDeleteItem: (EducationModel itemEducationModel) {},
+            onEditItem: (EducationModel itemEducationModel) {},
           );
   }
 

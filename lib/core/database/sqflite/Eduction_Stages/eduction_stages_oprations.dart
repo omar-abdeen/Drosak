@@ -14,16 +14,32 @@ class EductionStagesOprations extends MySQLiteDatabase {
     List<Map<String, Object?>> data = await select(
       tableName: MySQLiteDatabase.educationStagesTableName,
     );
-    listEducationModel+=data.map((item) => EducationModel.fromJson(item)).toList();
+    listEducationModel += data
+        .map((item) => EducationModel.fromJson(item))
+        .toList();
     return listEducationModel;
   }
-  Future<List<EducationModel>> searchEductionStages({required String searchWord}) async {
+
+  Future<List<EducationModel>> searchEductionStages({
+    required String searchWord,
+  }) async {
     List<EducationModel> listEducationModel = [];
     List<Map<String, Object?>> data = await search(
       tableName: MySQLiteDatabase.educationStagesTableName,
       searchWord: searchWord,
     );
-    listEducationModel+=data.map((item) => EducationModel.fromJson(item)).toList();
+    listEducationModel += data
+        .map((item) => EducationModel.fromJson(item))
+        .toList();
     return listEducationModel;
   }
+
+  Future<bool> softDeleteEductionStages(EducationModel educationModel) async {
+    return update(
+      tableName: MySQLiteDatabase.educationStagesTableName,
+      values: {MySQLiteDatabase.educationStagesStatus: 0},
+      where: '${MySQLiteDatabase.educationStagesId} = ${educationModel.id}',
+    );
+  }
+  
 }

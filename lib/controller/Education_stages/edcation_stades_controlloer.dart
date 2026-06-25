@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
+import 'package:drosak/core/database/sqflite/my_sqflite_database.dart';
 import 'package:drosak/core/resources/const_values.dart';
 import 'package:drosak/model/Education/education_model.dart';
 import 'package:drosak/view/All_Item/EducationStages/widgets/custom_search)eduction_stages.dart';
@@ -183,5 +184,14 @@ class EducationStatesController {
 
   void searchEducationStages(BuildContext context) {
     showSearch(context: context, delegate: CustomSearchDelegate());
+  }
+
+  void deleteEducationStages(EducationModel itemEducationModel) async {
+    EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
+    bool updated = await eductionStagesOprations.softDeleteEductionStages(
+      itemEducationModel,
+    );
+
+    void editEducationStages(EducationModel itemEducationModel) async {}
   }
 }
