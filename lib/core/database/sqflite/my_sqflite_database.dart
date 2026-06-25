@@ -16,7 +16,7 @@ class MySQLiteDatabase extends Crud {
     String databasePath = await sqfliteDatabase.getDatabasesPath();
     String drosakDatabaseName = "drosak.db";
     String realDatabasePath = join(databasePath, drosakDatabaseName);
-    int versionDatabase = 1;
+    int versionDatabase = 6;
     _db ??= await sqfliteDatabase.openDatabase(
       realDatabasePath,
       onCreate: _onCrate,
@@ -26,7 +26,11 @@ class MySQLiteDatabase extends Crud {
     return _db!;
   }
 
-  FutureOr<void> _onUpgrade(sqfliteDatabase.Database db, int oldVersion, int newVersion) async {
+  FutureOr<void> _onUpgrade(
+    sqfliteDatabase.Database db,
+    int oldVersion,
+    int newVersion,
+  ) async {
     await (db.execute('DROP TABLE IF EXISTS $educationStagesTableName'));
     await db.execute(
       "CREATE TABLE IF NOT EXISTS $educationStagesTableName"
@@ -75,9 +79,17 @@ class MySQLiteDatabase extends Crud {
   }
 
   @override
-  Future<List<Map<String, Object?>>> select({required String tableName}) async {
+  Future<List<Map<String, Object?>>> select({
+    required String tableName,
+    required String? where,
+    required List<Object?>? whereArgs,
+  }) async {
     await _initDatabase();
-    List<Map<String, Object?>> selectUsers = await _db!.query(tableName);
+    List<Map<String, Object?>> selectUsers = await _db!.query(
+      tableName,
+      where: where,
+      whereArgs: whereArgs,
+    );
     // List<Map<String, Object?>> selectProducts = await _db!.query("products");
     await _db!.close();
     return selectUsers;

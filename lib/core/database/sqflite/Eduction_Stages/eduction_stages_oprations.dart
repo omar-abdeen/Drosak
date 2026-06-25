@@ -13,6 +13,8 @@ class EductionStagesOprations extends MySQLiteDatabase {
     List<EducationModel> listEducationModel = [];
     List<Map<String, Object?>> data = await select(
       tableName: MySQLiteDatabase.educationStagesTableName,
+      where: '${MySQLiteDatabase.educationStagesStatus} = ?',
+      whereArgs: [1],
     );
     listEducationModel += data
         .map((item) => EducationModel.fromJson(item))
@@ -41,5 +43,5 @@ class EductionStagesOprations extends MySQLiteDatabase {
       where: '${MySQLiteDatabase.educationStagesId} = ${educationModel.id}',
     );
   }
-  
+
 }
