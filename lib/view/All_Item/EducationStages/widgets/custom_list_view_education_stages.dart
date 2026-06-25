@@ -34,13 +34,14 @@ class _CustomListViewEducationStagesState
         stream: _educationStatesController.outputEducationStages,
         initialData: _educationStatesController.listEducationModel,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting &&
-              (!snapshot.hasData || snapshot.data!.isEmpty)) {
-            return const Center(child: CircularProgressIndicator());
-          }
           final list = snapshot.data;
           if (list == null || list.isEmpty) {
-            return const Center(child: Text("لا توجد مراحل تعليمية مضافة"));
+            return const Center(
+              child: Text(
+                "لا توجد مراحل تعليمية مضافة",
+                style: TextStyle(fontSize: 18,color: Colors.grey,fontWeight: FontWeight.bold),
+              ),
+            );
           }
           return ListView.separated(
             padding: EdgeInsets.symmetric(vertical: HeightManager.h35),

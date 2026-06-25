@@ -28,9 +28,9 @@ class CustomItemEducationStages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: (direction) {
-        if (direction == DismissDirection.endToStart) {
+        if (direction == DismissDirection.startToEnd) {
           onDeleteItem(itemEducationModel);
-        } else if (direction == DismissDirection.startToEnd) {
+        } else if (direction == DismissDirection.endToStart) {
           onEditItem(itemEducationModel);
         }
       },
