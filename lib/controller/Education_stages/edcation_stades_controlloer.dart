@@ -94,21 +94,21 @@ class EducationStatesController {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(ConstValue.kSelectImageSource),
+          title: Text(ConstValue.kSelectImageSource),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.photo_library),
-                title: const Text(ConstValue.kPhotoLibrary),
+                leading: Icon(Icons.photo_library),
+                title: Text(ConstValue.kPhotoLibrary),
                 onTap: () {
                   Navigator.pop(context);
                   pickerImage(ImageSource.gallery);
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.camera_alt),
-                title: const Text(ConstValue.kTakePhoto),
+                leading: Icon(Icons.camera_alt),
+                title: Text(ConstValue.kTakePhoto),
                 onTap: () {
                   Navigator.pop(context);
                   pickerImage(ImageSource.camera);
@@ -191,7 +191,8 @@ class EducationStatesController {
       itemEducationModel,
     );
     listEducationModel.removeWhere(
-        (education) => education.id == itemEducationModel.id);
+      (education) => education.id == itemEducationModel.id,
+    );
   }
 
   void editEducationStages(EducationModel itemEducationModel) async {}

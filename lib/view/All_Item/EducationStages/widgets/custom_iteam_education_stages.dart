@@ -27,13 +27,43 @@ class CustomItemEducationStages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      onDismissed: (direction) {
+      confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
-          onDeleteItem(itemEducationModel);
+          return await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Confirm Deletion'),
+                content: Text('Are you sure you want to delete this item?'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                       onDeleteItem(itemEducationModel);
+                      Navigator.of(context).pop(true);
+                    },
+                    child: Text('Delete'),
+                  ),
+                ],
+              );
+            },
+          );
         } else if (direction == DismissDirection.endToStart) {
           onEditItem(itemEducationModel);
+          return false; // Prevent dismissal for edit action
         }
+        return false;
       },
+      // onDismissed: (direction) {
+      //   if (direction == DismissDirection.startToEnd) {
+      //     onDeleteItem(itemEducationModel);
+      //   } else if (direction == DismissDirection.endToStart) {
+      //     onEditItem(itemEducationModel);
+      //   }
+      // },
       background: Container(
         color: Colors.red,
         alignment: Alignment.centerRight,
