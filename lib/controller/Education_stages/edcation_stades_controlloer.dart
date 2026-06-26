@@ -13,7 +13,7 @@ import 'package:path_provider/path_provider.dart';
 class EducationStatesController {
   // 1. نسخة وحيدة وثابتة من الـ Controller
   static final EducationStatesController _instance =
-  EducationStatesController._internal();
+      EducationStatesController._internal();
 
   // 2. Factory constructor عشان يرجع نفس النسخة في كل مكان
   factory EducationStatesController() {
@@ -38,7 +38,7 @@ class EducationStatesController {
 
   void ControllerEducation() {
     controllerEducationStages =
-    StreamController<List<EducationModel>>.broadcast();
+        StreamController<List<EducationModel>>.broadcast();
     inputEducationStages = controllerEducationStages.sink;
     outputEducationStages = controllerEducationStages.stream
         .asBroadcastStream();
@@ -128,47 +128,46 @@ class EducationStatesController {
     inputImagePath.add(null);
     showBottomSheet(
       context: context,
-      builder: (context) =>
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: CustomShowBottomSheet(
-              outputImagePath: outputImagePath,
-              onPressedDeleteImage: () {
+      builder: (context) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: CustomShowBottomSheet(
+          outputImagePath: outputImagePath,
+          onPressedDeleteImage: () {
+            imagePath = null;
+            inputImagePath.add(imagePath);
+          },
+          onPressedPickImage: () {
+            showCustomDialogChooseImage(context: context);
+          },
+          controllerNameEduction: controllerAddEducation,
+          controllerDesEduction: controllerDescEducation,
+          onPressedAdd: () async {
+            if (formKey.currentState!.validate() == true) {
+              bool inserted = await addNewEducation();
+              if (inserted == true) {
+                listEducationModel.add(
+                  EducationModel(
+                    id: listEducationModel.length + 1,
+                    StagesName: controllerAddEducation.text,
+                    desc: controllerDescEducation.text,
+                    image: imagePath ?? "",
+                  ),
+                );
+                // إرسال نسخة جديدة من القائمة لضمان تحديث الـ UI
+                inputEducationStages.add(listEducationModel);
+
+                controllerAddEducation.clear();
+                controllerDescEducation.clear();
                 imagePath = null;
-                inputImagePath.add(imagePath);
-              },
-              onPressedPickImage: () {
-                showCustomDialogChooseImage(context: context);
-              },
-              controllerNameEduction: controllerAddEducation,
-              controllerDesEduction: controllerDescEducation,
-              onPressedAdd: () async {
-                if (formKey.currentState!.validate() == true) {
-                  bool inserted = await addNewEducation();
-                  if (inserted == true) {
-                    listEducationModel.add(
-                      EducationModel(
-                        id: listEducationModel.length + 1,
-                        StagesName: controllerAddEducation.text,
-                        desc: controllerDescEducation.text,
-                        image: imagePath ?? "",
-                      ),
-                    );
-                    // إرسال نسخة جديدة من القائمة لضمان تحديث الـ UI
-                    inputEducationStages.add(listEducationModel);
+                inputImagePath.add(null);
 
-                    controllerAddEducation.clear();
-                    controllerDescEducation.clear();
-                    imagePath = null;
-                    inputImagePath.add(null);
-
-                    Navigator.pop(context);
-                  }
-                }
-              },
-              formKey: formKey,
-            ),
-          ),
+                Navigator.pop(context);
+              }
+            }
+          },
+          formKey: formKey,
+        ),
+      ),
     );
   }
 
@@ -187,7 +186,15 @@ class EducationStatesController {
   }
 
   void searchEducationStages(BuildContext context) {
-    showSearch(context: context, delegate: CustomSearchDelegate());
+    showSearch(
+      context: context,
+      delegate: CustomSearchDelegate(
+        onDeleteItem: deleteEducationStages,
+        onEditItem: (itemEducationModel) {
+          editEducationStages(itemEducationModel, context);
+        },
+      ),
+    ).then((value) => getAllEducationStages());
   }
 
   void deleteEducationStages(EducationModel itemEducationModel) async {
@@ -196,7 +203,7 @@ class EducationStatesController {
       itemEducationModel,
     );
     listEducationModel.removeWhere(
-          (education) => education.id == itemEducationModel.id,
+      (education) => education.id == itemEducationModel.id,
     );
   }
 
@@ -209,64 +216,62 @@ class EducationStatesController {
     return updated;
   }
 
-  void editEducationStages(EducationModel itemEducationModel,
-      BuildContext context,) async {
+  void editEducationStages(
+    EducationModel itemEducationModel,
+    BuildContext context,
+  ) async {
     controllerAddEducation.text = itemEducationModel.StagesName;
     controllerDescEducation.text = itemEducationModel.desc;
     imagePath = itemEducationModel.image;
     inputImagePath.add(imagePath);
     showBottomSheet(
       context: context,
-      builder: (context) =>
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: CustomShowBottomSheet(
-              edit: true,
-              outputImagePath: outputImagePath,
-              onPressedDeleteImage: () {
-                imagePath = null;
-                inputImagePath.add(imagePath);
-              },
-              onPressedPickImage: () {
-                showCustomDialogChooseImage(context: context);
-              },
-              controllerNameEduction: controllerAddEducation,
-              controllerDesEduction: controllerDescEducation,
-              onPressedAdd: () async {
-                if (formKey.currentState!.validate() == true) {
-                  EducationModel newEducationModel = EducationModel(
-                    id: itemEducationModel.id,
-                    StagesName: controllerAddEducation.text,
-                    desc: controllerDescEducation.text,
-                    image: imagePath == null ? "" : imagePath!,
+      builder: (context) {
+        inputImagePath.add(imagePath);
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: CustomShowBottomSheet(
+            edit: true,
+            outputImagePath: outputImagePath,
+            onPressedDeleteImage: () {
+              imagePath = null;
+              inputImagePath.add(imagePath);
+            },
+            onPressedPickImage: () {
+              showCustomDialogChooseImage(context: context);
+            },
+            controllerNameEduction: controllerAddEducation,
+            controllerDesEduction: controllerDescEducation,
+            onPressedAdd: () async {
+              if (formKey.currentState!.validate() == true) {
+                EducationModel newEducationModel = EducationModel(
+                  id: itemEducationModel.id,
+                  StagesName: controllerAddEducation.text,
+                  desc: controllerDescEducation.text,
+                  image: imagePath == null ? "" : imagePath!,
+                );
+                bool edited = await editEducation(newEducationModel);
+                if (edited == true) {
+                  Navigator.pop(context);
+                  int indexEducation = listEducationModel.indexOf(
+                    itemEducationModel,
                   );
-                  bool edited = await editEducation(
-                      newEducationModel
-                  );
-                  if (edited == true) {
-                    Navigator.pop(context);
-                    int indexEducation = listEducationModel.indexOf(itemEducationModel);
+                  if (indexEducation >= 0) {
                     listEducationModel[indexEducation] = newEducationModel;
-                    // listEducationModel.add(
-                    //   EducationModel(
-                    //     id: listEducationModel.length + 1,
-                    //     StagesName: controllerAddEducation.text,
-                    //     desc: controllerDescEducation.text,
-                    //     image: imagePath ?? "",
-                    //   ),
-                    // );
-                    // إرسال نسخة جديدة من القائمة لضمان تحديث الـ UI
-                    inputEducationStages.add(listEducationModel);
-
-                    controllerAddEducation.clear();
-                    controllerDescEducation.clear();
-                    imagePath = null;
+                  } else {
+                    Navigator.of(context).pop();
                   }
+                  inputEducationStages.add(listEducationModel);
+                  controllerAddEducation.clear();
+                  controllerDescEducation.clear();
+                  imagePath = null;
                 }
-              },
-              formKey: formKey,
-            ),
+              }
+            },
+            formKey: formKey,
           ),
+        );
+      },
     );
   }
 }

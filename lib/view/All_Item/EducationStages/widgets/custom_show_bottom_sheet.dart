@@ -113,10 +113,9 @@ class CustomShowBottomSheet extends StatelessWidget {
               StreamBuilder(
                 stream: outputImagePath,
                 builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data != null) {
+                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.trim() != '')  {
                     return Column(
                       children: [
-                        if (snapshot.data != null)
                           Stack(
                             children: [
                               Image.file(

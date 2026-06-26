@@ -26,9 +26,11 @@ class EductionStagesOprations extends MySQLiteDatabase {
     required String searchWord,
   }) async {
     List<EducationModel> listEducationModel = [];
-    List<Map<String, Object?>> data = await search(
+    List<Map<String, Object?>> data = await select(
       tableName: MySQLiteDatabase.educationStagesTableName,
-      searchWord: searchWord,
+      where:
+          '${MySQLiteDatabase.educationStagesStagesName} LIKE ? AND ${MySQLiteDatabase.educationStagesStatus} == ?',
+      whereArgs: ['%$searchWord%',1],
     );
     listEducationModel += data
         .map((item) => EducationModel.fromJson(item))
@@ -44,6 +46,7 @@ class EductionStagesOprations extends MySQLiteDatabase {
       whereArgs: [educationModel.id],
     );
   }
+
   Future<bool> editEducationStages(EducationModel educationModel) async {
     return update(
       tableName: MySQLiteDatabase.educationStagesTableName,
@@ -52,4 +55,5 @@ class EductionStagesOprations extends MySQLiteDatabase {
       whereArgs: [educationModel.id],
     );
   }
+
 }

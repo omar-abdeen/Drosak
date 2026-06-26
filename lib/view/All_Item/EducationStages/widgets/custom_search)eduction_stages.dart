@@ -5,6 +5,11 @@ import 'package:drosak/view/All_Item/EducationStages/widgets/custom_search_List_
 import 'package:flutter/material.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
+  CustomSearchDelegate({required this.onDeleteItem, required this.onEditItem});
+
+  final void Function(EducationModel itemEducationModel) onDeleteItem;
+  final void Function(EducationModel itemEducationModel) onEditItem;
+
   @override
   ThemeData appBarTheme(BuildContext context) {
     return super
@@ -59,8 +64,8 @@ class CustomSearchDelegate extends SearchDelegate<String> {
             getSearchItems: eductionStagesOprations.searchEductionStages(
               searchWord: query,
             ),
-            onDeleteItem: (EducationModel itemEducationModel) {},
-            onEditItem: (EducationModel itemEducationModel) {},
+            onDeleteItem: onDeleteItem,
+            onEditItem: onEditItem,
           );
   }
 

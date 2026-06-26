@@ -94,24 +94,6 @@ class MySQLiteDatabase extends Crud {
     await _db!.close();
     return selectUsers;
   }
-
-  @override
-  Future<List<Map<String, Object?>>> search({
-    required String tableName,
-    required String searchWord,
-  }) async {
-    await _initDatabase();
-    List<Map<String, Object?>> data = await _db!.query(
-      tableName,
-      where: '$educationStagesStagesName LIKE ?',
-      whereArgs: ['%$searchWord%'],
-    );
-
-    // List<Map<String, Object?>> selectProducts = await _db!.query("products");
-    await _db!.close();
-    return data;
-  }
-
   @override
   Future<bool> update({
     required String tableName,
@@ -123,5 +105,11 @@ class MySQLiteDatabase extends Crud {
     int updateUsers = await _db!.update(tableName, values, where: where, whereArgs: whereArgs);
     await _db!.close();
     return updateUsers > 0;
+  }
+
+  @override
+  Future<List<Map<String, Object?>>> search({required String tableName, required String searchWord}) {
+    // TODO: implement search
+    throw UnimplementedError();
   }
 }

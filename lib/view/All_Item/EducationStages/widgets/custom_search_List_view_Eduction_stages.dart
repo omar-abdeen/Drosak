@@ -46,17 +46,22 @@ class CustomSearchListViewEductionStages extends StatelessWidget {
           );
         } else {
           final list = snapshot.data;
-          return ListView.separated(
-            padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
-            itemBuilder: (context, index) =>
-                CustomItemEducationStages(
-                  itemEducationModel: list![index],
-                  onDeleteItem: onDeleteItem,
-                  onEditItem: onEditItem,
-                ),
-            separatorBuilder: (context, index) =>
-                SizedBox(height: HeightManager.h35),
-            itemCount: list?.length ?? 0,
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: Expanded(
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
+                itemBuilder: (context, index) =>
+                    CustomItemEducationStages(
+                      itemEducationModel: list![index],
+                      onDeleteItem: onDeleteItem,
+                      onEditItem: onEditItem,
+                    ),
+                separatorBuilder: (context, index) =>
+                    SizedBox(height: HeightManager.h35),
+                itemCount: list?.length ?? 0,
+              ),
+            ),
           );
         }
       },
