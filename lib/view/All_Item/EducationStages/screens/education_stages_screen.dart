@@ -17,6 +17,7 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
     _controller = EducationStatesController();
     super.initState();
   }
+
   void dispose() {
     _controller.disposeController();
     super.dispose();
@@ -28,18 +29,23 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: CustomAppBar(
-          
           onPressedAddCircle: () {
             _controller.openBottomSheet(context: context);
           },
           onPressedSearch: () {
-            _controller.searchEducationStages( context);
+            _controller.searchEducationStages(context);
           },
         ),
-        body: Column(children: [CustomListViewEducationStages(
-          onDeleteItem: _controller.deleteEducationStages,
-          onEditItem: _controller.editEducationStages,
-        )]),
+        body: Column(
+          children: [
+            CustomListViewEducationStages(
+              onDeleteItem: _controller.deleteEducationStages,
+              onEditItem: (itemEducationModel) {
+                _controller.editEducationStages(itemEducationModel, context);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

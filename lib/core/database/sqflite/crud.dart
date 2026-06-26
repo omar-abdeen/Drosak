@@ -13,6 +13,7 @@ abstract class Crud {
     required String tableName,
     required Map<String, Object?> values,
     required String where,
+    required List<Object?>? whereArgs,
   });
   Future<List<Map<String, Object?>>> search({
     required String tableName,

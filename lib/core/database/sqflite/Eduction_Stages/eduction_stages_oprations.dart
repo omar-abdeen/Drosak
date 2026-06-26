@@ -40,8 +40,16 @@ class EductionStagesOprations extends MySQLiteDatabase {
     return update(
       tableName: MySQLiteDatabase.educationStagesTableName,
       values: {MySQLiteDatabase.educationStagesStatus: 0},
-      where: '${MySQLiteDatabase.educationStagesId} = ${educationModel.id}',
+      where: '${MySQLiteDatabase.educationStagesId} = ?',
+      whereArgs: [educationModel.id],
     );
   }
-
+  Future<bool> editEducationStages(EducationModel educationModel) async {
+    return update(
+      tableName: MySQLiteDatabase.educationStagesTableName,
+      values: educationModel.toJson(),
+      where: '${MySQLiteDatabase.educationStagesId} = ?',
+      whereArgs: [educationModel.id],
+    );
+  }
 }

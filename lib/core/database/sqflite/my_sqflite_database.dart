@@ -117,9 +117,10 @@ class MySQLiteDatabase extends Crud {
     required String tableName,
     required Map<String, Object?> values,
     required String where,
+    required List<Object?>? whereArgs,
   }) async {
     await _initDatabase();
-    int updateUsers = await _db!.update(tableName, values, where: where);
+    int updateUsers = await _db!.update(tableName, values, where: where, whereArgs: whereArgs);
     await _db!.close();
     return updateUsers > 0;
   }

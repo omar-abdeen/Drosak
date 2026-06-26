@@ -22,6 +22,7 @@ class CustomShowBottomSheet extends StatelessWidget {
     required this.onPressedDeleteImage,
     required this.outputImagePath,
     required this.formKey,
+    this.edit = false,
   });
   final VoidCallback onPressedPickImage;
   final TextEditingController controllerNameEduction;
@@ -30,6 +31,7 @@ class CustomShowBottomSheet extends StatelessWidget {
   final VoidCallback onPressedDeleteImage;
   final Stream<String?> outputImagePath;
   final GlobalKey<FormState> formKey;
+  final bool edit;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +153,7 @@ class CustomShowBottomSheet extends StatelessWidget {
               SizedBox(height: HeightManager.h20),
               CustomMaterialButton(
                 onPressed: onPressedAdd,
-                text: ConstValue.kAdd,
+                text: edit ? ConstValue.kEdit : ConstValue.kAdd,
               ),
             ],
           ),
