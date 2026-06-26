@@ -9,10 +9,12 @@ class CustomListViewEducationStages extends StatefulWidget {
     super.key,
     required this.onDeleteItem,
     required this.onEditItem,
+    required this.onRefresh,
   });
 
   final void Function(EducationModel itemEducationModel) onDeleteItem;
   final void Function(EducationModel itemEducationModel) onEditItem;
+  final RefreshCallback onRefresh;
 
   @override
   State<CustomListViewEducationStages> createState() =>
@@ -22,6 +24,7 @@ class CustomListViewEducationStages extends StatefulWidget {
 class _CustomListViewEducationStagesState
     extends State<CustomListViewEducationStages> {
   late EducationStatesController _educationStatesController;
+
   @override
   void initState() {
     super.initState();
@@ -39,20 +42,27 @@ class _CustomListViewEducationStagesState
             return const Center(
               child: Text(
                 "لا توجد مراحل تعليمية مضافة",
-                style: TextStyle(fontSize: 18,color: Colors.grey,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             );
           }
-          return ListView.separated(
-            padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
-            itemBuilder: (context, index) => CustomItemEducationStages(
-              itemEducationModel: list[index],
-              onDeleteItem: widget.onDeleteItem,
-              onEditItem: widget.onEditItem,
+          return RefreshIndicator(
+            onRefresh: widget.onRefresh,
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
+              itemBuilder: (context, index) => CustomItemEducationStages(
+                itemEducationModel: list[index],
+                onDeleteItem: widget.onDeleteItem,
+                onEditItem: widget.onEditItem,
+              ),
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: HeightManager.h35),
+              itemCount: list.length,
             ),
-            separatorBuilder: (context, index) =>
-                SizedBox(height: HeightManager.h35),
-            itemCount: list.length,
           );
         },
       ),

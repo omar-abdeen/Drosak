@@ -39,6 +39,7 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
         body: Column(
           children: [
             CustomListViewEducationStages(
+              onRefresh: _controller.onRefresh,
               onDeleteItem: _controller.deleteEducationStages,
               onEditItem: (itemEducationModel) {
                 _controller.editEducationStages(itemEducationModel, context);

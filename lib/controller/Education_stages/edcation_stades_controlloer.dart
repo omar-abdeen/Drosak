@@ -80,6 +80,13 @@ class EducationStatesController {
     inputImagePath.add(imagePath);
   }
 
+  Future<void> onRefresh() async {
+    listEducationModel.clear();
+    inputEducationStages.add(listEducationModel);
+    getAllEducationStages();
+    await Future.delayed(const Duration(seconds: 1));
+  }
+
   void saveImageOfMyApp(XFile image) async {
     Directory directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
