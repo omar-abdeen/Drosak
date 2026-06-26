@@ -13,7 +13,8 @@ class CustomListViewEducationStages extends StatefulWidget {
   });
 
   final void Function(EducationModel itemEducationModel) onDeleteItem;
-  final void Function(EducationModel itemEducationModel) onEditItem;
+  final void Function(EducationModel itemEducationModel, BuildContext context)
+      onEditItem;
   final RefreshCallback onRefresh;
 
   @override

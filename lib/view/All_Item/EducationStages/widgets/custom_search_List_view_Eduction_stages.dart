@@ -14,7 +14,7 @@ class CustomSearchListViewEductionStages extends StatelessWidget {
   });
   final Future<List<EducationModel>> getSearchItems;
   final void Function(EducationModel itemEducationModel) onDeleteItem;
-  final void Function(EducationModel itemEducationModel) onEditItem;
+   final void Function(EducationModel itemEducationModel) onEditItem;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<EducationModel>>(
@@ -48,19 +48,16 @@ class CustomSearchListViewEductionStages extends StatelessWidget {
           final list = snapshot.data;
           return Directionality(
             textDirection: TextDirection.rtl,
-            child: Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
-                itemBuilder: (context, index) =>
-                    CustomItemEducationStages(
-                      itemEducationModel: list![index],
-                      onDeleteItem: onDeleteItem,
-                      onEditItem: onEditItem,
-                    ),
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: HeightManager.h35),
-                itemCount: list?.length ?? 0,
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
+              itemBuilder: (context, index) => CustomItemEducationStages(
+                itemEducationModel: list![index],
+                onDeleteItem: onDeleteItem,
+                onEditItem: onEditItem,
               ),
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: HeightManager.h35),
+              itemCount: list?.length ?? 0,
             ),
           );
         }

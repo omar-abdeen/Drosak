@@ -1,14 +1,17 @@
+import 'package:drosak/controller/Education_stages/edcation_stades_controlloer.dart';
 import 'package:drosak/core/database/sqflite/Eduction_Stages/eduction_stages_oprations.dart';
 import 'package:drosak/core/resources/colors_manager.dart';
+import 'package:drosak/core/resources/height_manager.dart';
 import 'package:drosak/model/Education/education_model.dart';
-import 'package:drosak/view/All_Item/EducationStages/widgets/custom_search_List_view_Eduction_stages.dart';
+import 'package:drosak/view/All_Item/EducationStages/widgets/custom_iteam_education_stages.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   CustomSearchDelegate({required this.onDeleteItem, required this.onEditItem});
 
   final void Function(EducationModel itemEducationModel) onDeleteItem;
-  final void Function(EducationModel itemEducationModel) onEditItem;
+  final void Function(EducationModel itemEducationModel, BuildContext context)
+      onEditItem;
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -57,16 +60,36 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
-    return query == ''
-        ? const SizedBox()
-        : CustomSearchListViewEductionStages(
-            getSearchItems: eductionStagesOprations.searchEductionStages(
-              searchWord: query,
+    final controller = EducationStatesController();
+    return StreamBuilder<List<EducationModel>>(
+      stream: controller.outputEducationStages,
+      initialData: controller.listEducationModel,
+      builder: (context, snapshot) {
+        final results = (snapshot.data ?? [])
+            .where((element) =>
+                element.StagesName.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+
+        if (results.isEmpty) {
+          return const Center(child: Text('لا توجد نتائج مطابقة'));
+        }
+
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(vertical: HeightManager.h35),
+            itemBuilder: (context, index) => CustomItemEducationStages(
+              itemEducationModel: results[index],
+              onDeleteItem: onDeleteItem,
+              onEditItem: onEditItem,
             ),
-            onDeleteItem: onDeleteItem,
-            onEditItem: onEditItem,
-          );
+            separatorBuilder: (context, index) =>
+                SizedBox(height: HeightManager.h35),
+            itemCount: results.length,
+          ),
+        );
+      },
+    );
   }
 
   @override

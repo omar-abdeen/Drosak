@@ -197,8 +197,8 @@ class EducationStatesController {
       context: context,
       delegate: CustomSearchDelegate(
         onDeleteItem: deleteEducationStages,
-        onEditItem: (itemEducationModel) {
-          editEducationStages(itemEducationModel, context);
+        onEditItem: (itemEducationModel, searchContext) {
+          editEducationStages(itemEducationModel, searchContext);
         },
       ),
     ).then((value) => getAllEducationStages());
@@ -206,12 +206,14 @@ class EducationStatesController {
 
   void deleteEducationStages(EducationModel itemEducationModel) async {
     EductionStagesOprations eductionStagesOprations = EductionStagesOprations();
+    // ignore: unused_local_variable
     bool updated = await eductionStagesOprations.softDeleteEductionStages(
       itemEducationModel,
     );
     listEducationModel.removeWhere(
       (education) => education.id == itemEducationModel.id,
     );
+    inputEducationStages.add(List.from(listEducationModel));
   }
 
   Future<bool> editEducation(EducationModel itemEducationModel) async {

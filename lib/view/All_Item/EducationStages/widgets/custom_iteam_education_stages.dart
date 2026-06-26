@@ -23,7 +23,8 @@ class CustomItemEducationStages extends StatelessWidget {
 
   final EducationModel itemEducationModel;
   final void Function(EducationModel itemEducationModel) onDeleteItem;
-  final void Function(EducationModel itemEducationModel) onEditItem;
+  final void Function(EducationModel itemEducationModel, BuildContext context)
+      onEditItem;
   @override
   Widget build(BuildContext context) {
     return Dismissible(
@@ -33,37 +34,34 @@ class CustomItemEducationStages extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Confirm Deletion'),
-                content: Text('Are you sure you want to delete this item?'),
+                title: const Text('تأكيد الحذف'),
+                content: const Text('هل أنت متأكد من أنك تريد حذف هذا العنصر؟'),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('Cancel'),
+                    child: const Text('إلغاء'),
                   ),
                   TextButton(
                     onPressed: () {
-                       onDeleteItem(itemEducationModel);
                       Navigator.of(context).pop(true);
                     },
-                    child: Text('Delete'),
+                    child: const Text('حذف'),
                   ),
                 ],
               );
             },
           );
         } else if (direction == DismissDirection.endToStart) {
-          onEditItem(itemEducationModel);
+          onEditItem(itemEducationModel, context);
           return false; // Prevent dismissal for edit action
         }
         return false;
       },
-      // onDismissed: (direction) {
-      //   if (direction == DismissDirection.startToEnd) {
-      //     onDeleteItem(itemEducationModel);
-      //   } else if (direction == DismissDirection.endToStart) {
-      //     onEditItem(itemEducationModel);
-      //   }
-      // },
+      onDismissed: (direction) {
+        if (direction == DismissDirection.startToEnd) {
+          onDeleteItem(itemEducationModel);
+        }
+      },
       background: Container(
         color: Colors.red,
         alignment: Alignment.centerRight,

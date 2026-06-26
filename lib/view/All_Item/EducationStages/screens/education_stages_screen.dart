@@ -41,13 +41,13 @@ class _EducationStagesScreenState extends State<EducationStagesScreen> {
             CustomListViewEducationStages(
               onRefresh: _controller.onRefresh,
               onDeleteItem: _controller.deleteEducationStages,
-              onEditItem: (itemEducationModel) {
-                _controller.editEducationStages(itemEducationModel, context);
+              onEditItem: (itemEducationModel, searchContext) {
+                _controller.editEducationStages(itemEducationModel, searchContext);
               },
             ),
           ],
         ),
-      ),
+        ),
     );
   }
 }
